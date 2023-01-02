@@ -5,11 +5,11 @@ import { TType } from "../../core/data/commons"
 
 function index() {
   const cards: TType[] = [
-    "main",
+    "primary",
     "secondary",
     "danger",
     "success",
-    "main",
+    "primary",
     "secondary",
     "danger",
     "success",

@@ -1,1 +1,1 @@
-export type TType = "main" | "secondary" | "danger" | "success"
+export type TType = "primary" | "secondary" | "danger" | "success"
