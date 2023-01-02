@@ -7,7 +7,7 @@ import Button from "./Button"
 import { Icon } from "@iconify-icon/react"
 import ConfirmationModal from "./ConfirmationModal"
 import DropDown from "./DropDown"
-import TaskOptions, { ICardOption } from "./CardOptions"
+import TaskOptions, { ICardOption } from "./TaskOptions"
 
 function TaskItem({
   task: {
