@@ -9,16 +9,20 @@ module.exports = {
     },
 
     extend: {
-      // colors: {
-      //   primary: "#01959F",
-      //   secondary: "#FEEABC",
-      //   danger: "#F5B1B7",
-      //   success: "#B8DBCA",
-      // },
+      colors: {
+        primary: "#01959F",
+        secondary: "#FEEABC",
+        danger: "#F5B1B7",
+        success: "#B8DBCA",
+      },
       backgroundColor: {
+        "primary-main": "#01959F",
         primary: "#F7FEFF",
+        "secondary-main": "#FEEABC",
         secondary: "#FFFCF5",
+        "danger-main": "#F5B1B7",
         danger: "#FFFAFA",
+        "success-main": "#B8DBCA",
         success: "#F8FBF9",
       },
       borderColor: {
