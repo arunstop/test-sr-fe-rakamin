@@ -1,7 +1,7 @@
 export interface ITask {
   id: number
   name: string
-  done: string | null
+  done: boolean | null
   todo_id: number
   created_at: string
   updated_at: string
