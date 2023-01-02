@@ -7,20 +7,20 @@ export interface IModalProps {
   show: boolean
   title?: string
   children?: React.ReactNode
-  actions?: {
-    ok?: {
-      label: string
-      action: () => void
-    }
-    cancel?: {
-      label: string
-      action: () => void
-    }
-  }
+//   actions?: {
+//     ok?: {
+//       label?: string
+//       action: () => void
+//     }
+//     cancel?: {
+//       label?: string
+//       action: () => void
+//     }
+//   }
   onClose: () => void
 }
 
-function Modal({ show, title, children, actions, onClose }: IModalProps) {
+function Modal({ show, title, children, onClose }: IModalProps) {
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -53,7 +53,10 @@ function Modal({ show, title, children, actions, onClose }: IModalProps) {
                       <Dialog.Title className="text-xl font-bold">
                         {title}
                       </Dialog.Title>
-                      <Button className="bg-transparent text-black px-0" onClick={onClose}>
+                      <Button
+                        className="bg-transparent text-black px-0"
+                        onClick={onClose}
+                      >
                         <Icon
                           icon="ion:close-round"
                           className="w-[12px] aspect-square"
@@ -63,12 +66,17 @@ function Modal({ show, title, children, actions, onClose }: IModalProps) {
                   </>
                 )}
                 {children}
-                {!!actions && (
+                {/* {!!actions && (
                   <div className="flex justify-end gap-[0.625rem] p-6 w-full">
-                    <Button className="" onClick={onClose}>Okay</Button>
-                    <Button className="border border-[#E0E0E0] bg-white text-black shadow-[0px_1px_2px] shadow-black/[0.12] order-first">Cancel</Button>
+                    <Button className="" >{actions.ok?.label || "Okay"}</Button>
+                    <Button
+                      className="border border-[#E0E0E0] bg-white text-black shadow-[0px_1px_2px] shadow-black/[0.12] order-first"
+                      onClick={onClose}
+                    >
+                      {actions.cancel?.label || "Cancel"}
+                    </Button>
                   </div>
-                )}
+                )} */}
               </Dialog.Panel>
             </Transition.Child>
           </div>
