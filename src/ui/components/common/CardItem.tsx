@@ -21,8 +21,8 @@ function CardItem(props: { todo: ITodo; type: TType }) {
       todo_id: 1,
       created_at: "",
       updated_at: "",
-      done: null,
-      progress_percentage: 90,
+      done: true,
+      progress_percentage: 100,
     },
     {
       id: 2,
