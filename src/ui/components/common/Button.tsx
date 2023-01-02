@@ -10,7 +10,7 @@ function Button({
     <button
       {...props}
       className={`flex gap-1 rounded-lg items-center px-4 text-white bg-primary-main transition-all duration-200
-      hover:-translate-y-1 active:scale-95 active:translate-y-1 ease-in-out
+      hover:-translate-y-1 active:scale-95 active:translate-y-1 ease-in-out font-bold py-1
       ${props.className}`}
     >
       {children}
