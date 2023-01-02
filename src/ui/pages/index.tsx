@@ -1,6 +1,6 @@
 import React from "react"
 import LayoutMain from "../layouts/LayoutMain"
-import Card from "../components/common/Card"
+import CardItem from "../components/common/CardItem"
 import { TType } from "../../core/data/commons"
 
 function index() {
@@ -17,15 +17,19 @@ function index() {
   return (
     <LayoutMain>
       <div className="p-6">
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <>
             {cards.map((v, idx) => {
               return (
-                  <Card
-                    key={idx}
-                    todo={{ id: idx, title: v.toUpperCase() + " " + idx }}
-                    type={v}
-                  />
+                <CardItem
+                  key={idx}
+                  todo={{
+                    id: idx,
+                    title: v.toUpperCase() + " " + idx,
+                    description: "something",
+                  }}
+                  type={v}
+                />
               )
             })}
           </>
