@@ -6,6 +6,6 @@
 
 @layer base {
   html {
-    @apply font-nunito-sans
+    @apply font-nunito-sans text-base
   }
 }
