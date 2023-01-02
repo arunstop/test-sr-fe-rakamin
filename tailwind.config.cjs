@@ -18,11 +18,11 @@ module.exports = {
       backgroundColor: {
         "primary-main": "#01959F",
         primary: "#F7FEFF",
-        "secondary-main": "#FEEABC",
+        "secondary-main": "#FA9810",
         secondary: "#FFFCF5",
-        "danger-main": "#F5B1B7",
+        "danger-main": "#E11428",
         danger: "#FFFAFA",
-        "success-main": "#B8DBCA",
+        "success-main": "#43936C",
         success: "#F8FBF9",
       },
       borderColor: {
