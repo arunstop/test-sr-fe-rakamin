@@ -27,7 +27,7 @@ function ProgressBar({
       )}
       {/* if no value aka null */}
       {value == null && (
-        <Icon icon="ion:close-circle-outline" className={`text-lg ${style.text}`} />
+        <Icon icon="mdi:close-circle-outline" className={`text-lg ${style.text}`} />
       )}
       {/* if null*/}
       {!done && value && <span className="text-[#757575]">{value + "%"}</span>}
