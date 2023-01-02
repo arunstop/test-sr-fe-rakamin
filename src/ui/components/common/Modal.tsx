@@ -5,22 +5,23 @@ import Button from "./Button"
 
 export interface IModalProps {
   show: boolean
+  titleIcon?: React.ReactNode
   title?: string
   children?: React.ReactNode
-//   actions?: {
-//     ok?: {
-//       label?: string
-//       action: () => void
-//     }
-//     cancel?: {
-//       label?: string
-//       action: () => void
-//     }
-//   }
+  //   actions?: {
+  //     ok?: {
+  //       label?: string
+  //       action: () => void
+  //     }
+  //     cancel?: {
+  //       label?: string
+  //       action: () => void
+  //     }
+  //   }
   onClose: () => void
 }
 
-function Modal({ show, title, children, onClose }: IModalProps) {
+function Modal({ show, title, titleIcon, children, onClose }: IModalProps) {
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -49,12 +50,13 @@ function Modal({ show, title, children, onClose }: IModalProps) {
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white transition-all grid ">
                 {!!title && (
                   <>
-                    <div className="flex justify-between gap-2 p-6">
+                    <div className="flex gap-2 p-6 items-center">
+                      {!!titleIcon && <span className="text-lg flex">{titleIcon}</span>}
                       <Dialog.Title className="text-xl font-bold">
                         {title}
                       </Dialog.Title>
                       <Button
-                        className="bg-transparent text-black px-0"
+                        className="bg-transparent ml-auto text-black px-0"
                         onClick={onClose}
                       >
                         <Icon
