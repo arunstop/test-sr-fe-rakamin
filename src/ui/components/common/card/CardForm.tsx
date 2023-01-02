@@ -10,9 +10,11 @@ export interface ICardFormData {
 function CardForm({
   data,
   onEdit,
+  onSubmit,
   onClose,
 }: {
   data: ICardFormData
+  onSubmit: () => void
   onEdit: (data: ICardFormData) => void
   onClose: () => void
 }) {
@@ -23,12 +25,14 @@ function CardForm({
       className="flex flex-col gap-2 sm:gap-4 px-6"
       onSubmit={(ev) => {
         ev.preventDefault()
+        onSubmit()
       }}
     >
       <div className="grid gap-4">
         <div className="grid gap-2">
           <span className="text-sm font-bold">Task Name</span>
           <TextInput
+            name="name"
             value={name}
             onChange={(ev) => setName(ev.target.value)}
             onBlur={(ev) => {
@@ -39,6 +43,7 @@ function CardForm({
         <div className="grid gap-2">
           <span className="text-sm font-bold">Progress</span>
           <TextInput
+            name="progress"
             value={progress}
             onChange={(ev) => {
               if (!ev.target.value) return
@@ -58,7 +63,7 @@ function CardForm({
         </div>
       </div>
       <div className="flex justify-end gap-[0.625rem] py-6 w-full">
-        <Button className="" onClick={onClose}>
+        <Button className="" onClick={onClose} type="submit">
           Save Task
         </Button>
         <Button
