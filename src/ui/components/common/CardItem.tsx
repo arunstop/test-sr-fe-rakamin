@@ -36,7 +36,7 @@ function CardItem(props: { todo: ITodo; type: TType }) {
       progress_percentage: 30,
     },
     {
-      id: 2,
+      id: 3,
       name: "Data Migration: Performance & Culture End Game",
       todo_id: 1,
       created_at: "",
@@ -45,7 +45,7 @@ function CardItem(props: { todo: ITodo; type: TType }) {
       progress_percentage: 60,
     },
     {
-      id: 3,
+      id: 4,
       name: "Bundle interplanetary analytics for improved transmission",
       todo_id: 1,
       created_at: "",
