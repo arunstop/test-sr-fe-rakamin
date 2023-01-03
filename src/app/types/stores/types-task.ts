@@ -1,20 +1,6 @@
 import { ITask } from "../../../core/data/models/task"
 import { IServiceReq } from "../service"
 
-export interface IStoreTaskState {
-  tasks: Map<number, ITask[]>
-}
-
-export interface IStoreTaskAction {
-  getTask(): void
-  addTask(input: ITaskInput): void
-  deleteTask(): void
-  editTask(): void
-}
-
-export type IStoreTask = IStoreTaskState & IStoreTaskAction
-
-
 // service related types
 
 export interface ITaskInput {
@@ -23,21 +9,39 @@ export interface ITaskInput {
 }
 
 export interface IServiceTaskData {
-  todoId: string
-  taskId: string
+  todoId: number
+  taskId: number
   input: ITaskInput
 }
 
+export type IRepoTaskGetProps = Pick<IServiceTaskData, "todoId">
+export type IRepoTaskAddProps = Omit<IServiceTaskData, "taskId">
+export type IRepoTaskEditProps = IServiceTaskData
+export type IRepoTaskDeleteProps = Omit<IServiceTaskData, "input">
+
 export type TServiceTaskParams<IN, OUT = ITask> = IServiceReq<IN, OUT>
 export type TServiceTaskGetProps = TServiceTaskParams<
-  Pick<IServiceTaskData, "todoId">,
+  IRepoTaskGetProps,
   ITask[]
 >
-export type TServiceTaskAddProps = TServiceTaskParams<
-  Omit<IServiceTaskData, "taskId">
->
+export type TServiceTaskAddProps = TServiceTaskParams<IRepoTaskAddProps>
 export type TServiceTaskEditProps = TServiceTaskParams<IServiceTaskData>
 export type TServiceTaskDeleteProps = TServiceTaskParams<
-  Omit<IServiceTaskData, "input">,
+  IRepoTaskDeleteProps,
   boolean
 >
+
+// store related types
+
+export interface IStoreTaskState {
+  tasks: Map<number, ITask[]>
+}
+
+export interface IStoreTaskAction {
+  getTask(props: TServiceTaskGetProps): void | Promise<void>
+  addTask(props: TServiceTaskAddProps): void | Promise<void>
+  editTask(props: TServiceTaskEditProps): void | Promise<void>
+  deleteTask(props: TServiceTaskDeleteProps): void | Promise<void>
+}
+
+export type IStoreTask = IStoreTaskState & IStoreTaskAction
