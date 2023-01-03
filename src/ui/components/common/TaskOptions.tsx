@@ -19,7 +19,7 @@ function TaskOptions({
     <DropDown trigger={trigger}>
       <Menu.Items
         as="div"
-        className="absolute flex flex-col right-0 bg-white min-w-[12rem] rounded-lg overflow-hidden z-[10] py-2 
+        className="absolute flex flex-col right-0 bg-white min-w-[12rem] rounded-lg overflow-hidden z-[1] py-2 
         shadow-[0px_4px_4px_rgba(0,0,0,0.08)]"
       >
         {options.map((e,idx) => (

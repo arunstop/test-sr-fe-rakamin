@@ -1,7 +1,7 @@
 import React from "react"
 import LayoutMain from "../layouts/LayoutMain"
 import CardItem from "../components/common/CardItem"
-import { TType } from "../../core/data/commons"
+import { TType } from "../../app/types/commons"
 
 function index() {
   const cards: TType[] = [

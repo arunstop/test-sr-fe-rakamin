@@ -1,7 +1,7 @@
 import React from "react"
 import Modal, { IModalProps } from "./Modal"
 import Button from "./Button"
-import { TType } from "../../../core/data/commons"
+import { TType } from "../../../app/types/commons"
 import { Icon } from "@iconify-icon/react"
 import { getTypeStyle } from "../../helpers/style"
 

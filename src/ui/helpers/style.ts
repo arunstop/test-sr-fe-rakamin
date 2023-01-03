@@ -1,4 +1,4 @@
-import { TType } from "../../core/data/commons"
+import { TType } from "../../app/types/commons"
 
 interface ITypeStyle {
   bg: string

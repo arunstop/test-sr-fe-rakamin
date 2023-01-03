@@ -1,6 +1,6 @@
 import React from "react"
 import { getTypeStyle } from "../../helpers/style"
-import { TType } from "../../../core/data/commons"
+import { TType } from "../../../app/types/commons"
 import { Icon } from "@iconify-icon/react"
 
 function ProgressBar({

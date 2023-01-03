@@ -1,6 +1,6 @@
 import { Icon } from "@iconify-icon/react"
 import { useState } from "react"
-import { TType } from "../../../core/data/commons"
+import { TType } from "../../../app/types/commons"
 import { ITask } from "../../../core/data/models/task"
 import { ITodo } from "../../../core/data/models/todo"
 import { getTypeStyle } from "../../helpers/style"
@@ -60,18 +60,18 @@ function CardItem(props: { todo: ITodo; type: TType }) {
     <>
       <div
         className={`rounded border p-[0.75rem] bg-primary-bg flex flex-col 
-      gap-[0.625rem] ${style.bg + style.border}`}
+        gap-[0.625rem] ${style.bg + style.border}`}
       >
         <div>
           <Label text={title} type={type} />
         </div>
         <div className="font-bold">{description}</div>
-        <div className="flex flex-col gap-[inherit]">
+        <div className="flex flex-col gap-[inherit] isolate">
           {tasks.map((e) => {
             return <TaskItem key={e.id} task={e} />
           })}
         </div>
-        <div>
+        <div >
           <Button
             className="flex gap-[6.67px] items-center px-0 bg-transparent text-black"
             onClick={() => setNewModal(true)}
