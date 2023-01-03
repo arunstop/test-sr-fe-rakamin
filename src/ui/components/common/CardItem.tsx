@@ -11,7 +11,16 @@ import Label from "./Label"
 import TaskItem from "./TaskItem"
 import CardAddModal from "./card/CardAddModal"
 
-function CardItem(props: { todo: ITodo; type: TType }) {
+export interface ICardDirection {
+  left?: number
+  right?: number
+}
+
+function CardItem(props: {
+  todo: ITodo
+  type: TType
+  direction: ICardDirection
+}) {
   const {
     todo: { id, title, description },
     type,
@@ -20,9 +29,13 @@ function CardItem(props: { todo: ITodo; type: TType }) {
 
   const [newModal, setNewModal] = useState(false)
   // TODO: rendering a bit too much, please
-  const items = useCallback(() => <ItemSection todoId={id} />, [id])
+  const items = useCallback(
+    () => <ItemSection todoId={id} direction={props.direction} />,
+    [id],
+  )
   return (
     <>
+    
       <div
         className={`rounded border p-[0.75rem] bg-primary-bg flex flex-col 
         gap-[0.625rem] ${style.bg + style.border}`}
@@ -52,14 +65,20 @@ function CardItem(props: { todo: ITodo; type: TType }) {
   )
 }
 
-function ItemSection({ todoId }: { todoId: number }) {
+function ItemSection({
+  todoId,
+  direction,
+}: {
+  todoId: number
+  direction: ICardDirection
+}) {
   const data = useTaskStore((state) => [state.tasks.get(todoId)], shallow)
   const tasks = data[0] ? (data[0] as unknown as ITask[]) : null
   return (
     <div className="flex flex-col gap-[inherit] isolate">
       {!!tasks &&
         tasks.map((e) => {
-          return <TaskItem key={e.id} task={e} />
+          return <TaskItem key={e.id} task={e} direction={direction} />
         })}
     </div>
   )

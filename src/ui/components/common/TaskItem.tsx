@@ -11,6 +11,9 @@ import TaskOptions, { ICardOption } from "./TaskOptions"
 import { useTaskStore } from "../../../app/stores/task/TaskStore"
 import CardAddModal from "./card/CardAddModal"
 import CardEditModal from "./card/CardEditModal"
+import { TServiceTaskMoveDirection } from "../../../app/types/stores/types-task"
+import { useTodo } from "../../../app/stores/todo/TodoHook"
+import { ICardDirection } from "./CardItem"
 
 function TaskItem({
   task: {
@@ -22,13 +25,17 @@ function TaskItem({
     updated_at,
     progress_percentage,
   },
+  direction,
 }: {
   task: ITask
+  direction: ICardDirection
 }) {
-  const { deleteTask } = useTaskStore()
+  const { moveTask, deleteTask } = useTaskStore()
   const [deleteModal, setDeleteModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
   const [loading, setLoading] = useState(false)
+  const { state } = useTodo()
+
   function closeDeleteModal() {
     setDeleteModal(false)
   }
@@ -49,22 +56,33 @@ function TaskItem({
     setLoading(false)
   }
 
-  const optionButton = (
-    <Button className="px-0 text-[1.5rem] bg-transparent text-[#757575] hover:!bg-[#EDEDED] rounded">
-      <Icon icon="fe:elipsis-h" />
-    </Button>
-  )
+  async function exeMoveTask(dir: TServiceTaskMoveDirection) {
+    let target = undefined
+    if (dir === "LEFT") target = direction.left
+    if (dir === "RIGHT") target = direction.right
+    if (!target) return
+
+    moveTask({
+      data: {
+        input: { name: name, progress_percentage: progress_percentage },
+        taskId: id,
+        todoId: todo_id,
+        targetTodoId: target,
+      },
+      direction: dir,
+    })
+  }
 
   const options: ICardOption[] = [
     {
       icon: <Icon icon="uil:arrow-left" />,
       title: "Move Left",
-      action: () => {},
+      action: () => exeMoveTask("LEFT"),
     },
     {
       icon: <Icon icon="uil:arrow-right" />,
       title: "Move Right",
-      action: () => {},
+      action: () => exeMoveTask("RIGHT"),
     },
     {
       icon: <Icon icon="uil:edit-alt" />,
@@ -77,6 +95,12 @@ function TaskItem({
       action: () => setDeleteModal(true),
     },
   ]
+
+  const optionButton = (
+    <Button className="px-0 text-[1.5rem] bg-transparent text-[#757575] hover:!bg-[#EDEDED] rounded">
+      <Icon icon="fe:elipsis-h" />
+    </Button>
+  )
 
   return (
     <>

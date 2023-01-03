@@ -45,6 +45,28 @@ export const useTaskStore = create<IStoreTask>((set) => ({
     })
   },
 
+  moveTask: async (props) => {
+    const res = await serviceTaskEdit(props)
+    if (!res) return
+
+    const freshTasks = await serviceTaskGet({
+      data: { todoId: props.data.todoId },
+    })
+    if (!freshTasks) return
+
+    // update target todo tasks
+    const freshTargetTasks = await serviceTaskGet({
+      data: { todoId: props.data.targetTodoId },
+    })
+    if (!freshTargetTasks) return
+
+    set((old) => {
+      old.tasks.set(props.data.todoId, freshTasks)
+      old.tasks.set(props.data.targetTodoId, freshTargetTasks)
+      return { ...old }
+    })
+  },
+
   deleteTask: async (props) => {
     const res = await serviceTaskDelete(props)
     if (!res) return
