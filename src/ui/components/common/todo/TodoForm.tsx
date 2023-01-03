@@ -1,23 +1,24 @@
-import React, { useState } from "react"
+import { useState } from "react"
+import { ITodoInput } from "../../../../app/types/stores/types-todo"
 import Button from "../Button"
 import TextInput from "../TextInput"
-import { ITaskInput } from "../../../../app/types/stores/types-task"
 
-function CardForm({
+function TodoForm({
   data,
   onEdit,
   onSubmit,
   onClose,
   loading,
 }: {
-  data: ITaskInput
+  data: ITodoInput
   onSubmit: () => void
-  onEdit: (data: ITaskInput) => void
+  onEdit: (data: ITodoInput) => void
   onClose: () => void
-  loading: boolean
+  loading?: boolean
 }) {
   const [name, setName] = useState("")
-  const [progress, setProgress] = useState(0)
+  const [description, setDescription] = useState("")
+
   return (
     <form
       className="flex flex-col gap-2 sm:gap-4 px-6"
@@ -28,40 +29,30 @@ function CardForm({
     >
       <div className="grid gap-4">
         <div className="grid gap-2">
-          <span className="text-sm font-bold">Task Name</span>
+          <span className="text-sm font-bold">Title</span>
           <TextInput
             name="name"
             value={name}
             onChange={(ev) => setName(ev.target.value)}
             onBlur={(ev) => {
-              onEdit({ ...data, name: ev.target.value })
+              onEdit({ ...data, title: ev.target.value })
             }}
           />
         </div>
         <div className="grid gap-2">
-          <span className="text-sm font-bold">Progress</span>
+          <span className="text-sm font-bold">Description</span>
           <TextInput
-            name="progress"
-            value={progress}
-            onChange={(ev) => {
-              if (!ev.target.value) return
-              const val = parseInt(ev.target.value) * 1
-              if (val < 0) return
-              if (val > 100) return
-              return setProgress(val)
-            }}
-            className="w-[40%]"
-            type="number"
-            min={0}
-            max={100}
+            name="description"
+            value={description}
+            onChange={(ev) => setDescription(ev.target.value)}
             onBlur={(ev) => {
-              onEdit({ ...data, progress_percentage: parseInt(ev.target.value) })
+              onEdit({ ...data, description: ev.target.value })
             }}
           />
         </div>
       </div>
       <div className="flex justify-end gap-[0.625rem] py-6 w-full">
-        <Button className="" type="submit" loading={loading}>
+        <Button className=""  type="submit" loading={loading}>
           Save Task
         </Button>
         <Button
@@ -76,4 +67,4 @@ function CardForm({
   )
 }
 
-export default CardForm
+export default TodoForm
