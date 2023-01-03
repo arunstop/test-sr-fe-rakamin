@@ -1,5 +1,5 @@
 import React from "react"
-import { TType } from "../../../core/data/commons"
+import { TType } from "../../../app/types/commons"
 import { getTypeStyle } from "../../helpers/style"
 
 function Label({ text, type }: { text: string; type: TType }) {

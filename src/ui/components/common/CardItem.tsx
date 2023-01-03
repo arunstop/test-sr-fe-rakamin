@@ -1,6 +1,6 @@
 import { Icon } from "@iconify-icon/react"
 import { useState } from "react"
-import { TType } from "../../../core/data/commons"
+import { TType } from "../../../app/types/commons"
 import { ITask } from "../../../core/data/models/task"
 import { ITodo } from "../../../core/data/models/todo"
 import { getTypeStyle } from "../../helpers/style"

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { TType } from "../../../core/data/commons"
+import { TType } from "../../../app/types/commons"
 import { getTypeStyle } from "../../helpers/style"
 import { ITask } from "../../../core/data/models/task"
 import ProgressBar from "./ProgressBar"
