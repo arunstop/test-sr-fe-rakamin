@@ -9,6 +9,8 @@ import ConfirmationModal from "./ConfirmationModal"
 import DropDown from "./DropDown"
 import TaskOptions, { ICardOption } from "./TaskOptions"
 import { useTaskStore } from "../../../app/stores/task/TaskStore"
+import CardAddModal from "./card/CardAddModal"
+import CardEditModal from "./card/CardEditModal"
 
 function TaskItem({
   task: {
@@ -25,6 +27,7 @@ function TaskItem({
 }) {
   const { deleteTask } = useTaskStore()
   const [deleteModal, setDeleteModal] = useState(false)
+  const [editModal, setEditModal] = useState(false)
   const [loading, setLoading] = useState(false)
   function closeDeleteModal() {
     setDeleteModal(false)
@@ -63,7 +66,11 @@ function TaskItem({
       title: "Move Right",
       action: () => {},
     },
-    { icon: <Icon icon="uil:edit-alt" />, title: "Edit", action: () => {} },
+    {
+      icon: <Icon icon="uil:edit-alt" />,
+      title: "Edit",
+      action: () => setEditModal(true),
+    },
     {
       icon: <Icon icon="uil:trash-alt" />,
       title: "Delete",
@@ -92,6 +99,14 @@ function TaskItem({
         desc="Are you sure want to delete this task? your action can’t be reverted."
         ok={{ label: "Delete", action: confirmDeleteTask }}
         cancel={{ label: "Cancel", action: closeDeleteModal }}
+      />
+      <CardEditModal
+        show={editModal}
+        onClose={() => setEditModal(false)}
+        title={"Edit Task"}
+        todoId={todo_id}
+        taskId={id}
+        input={{ name: name, progress_percentage: progress_percentage || 0 }}
       />
     </>
   )

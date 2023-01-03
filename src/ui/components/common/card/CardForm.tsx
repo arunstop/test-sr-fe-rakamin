@@ -16,8 +16,8 @@ function CardForm({
   onClose: () => void
   loading: boolean
 }) {
-  const [name, setName] = useState("")
-  const [progress, setProgress] = useState(0)
+  const [name, setName] = useState(data.name)
+  const [progress, setProgress] = useState(data.progress_percentage)
   return (
     <form
       className="flex flex-col gap-2 sm:gap-4 px-6"
