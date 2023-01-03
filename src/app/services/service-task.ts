@@ -23,16 +23,16 @@ export async function serviceTaskGet({
   onError,
   onSuccess,
 }: TServiceTaskGetProps): Promise<ITask[] | null> {
-  onLoading?.("Getting your task list...")
+  await onLoading?.("Getting your task list...")
   try {
     const resp = await repoTaskGet({ todoId: data.todoId, token: token })
     if (!resp.ok) throw new Error((await resp.json()).message)
     const result = (await resp.json()) as unknown as ITask[]
-    onSuccess?.(result)
+    await onSuccess?.(result)
     return result
   } catch (error) {
     console.log(error)
-    onError?.((error as Error).message)
+    await onError?.((error as Error).message)
     return null
   }
 }
@@ -43,7 +43,7 @@ export async function serviceTaskAdd({
   onError,
   onSuccess,
 }: TServiceTaskAddProps): Promise<ITask | null> {
-  onLoading?.("Adding task...")
+  await onLoading?.("Adding task...")
   try {
     const resp = await repoTaskAdd({
       todoId: data.todoId,
@@ -52,11 +52,11 @@ export async function serviceTaskAdd({
     })
     if (!resp.ok) throw new Error((await resp.json()).message)
     const result = (await resp.json()) as unknown as ITask
-    onSuccess?.(result)
+    await onSuccess?.(result)
     return result
   } catch (error) {
     console.log(error)
-    onError?.((error as Error).message)
+    await onError?.((error as Error).message)
     return null
   }
 }
@@ -67,7 +67,7 @@ export async function serviceTaskEdit({
   onError,
   onSuccess,
 }: TServiceTaskEditProps): Promise<ITask | null> {
-  onLoading?.("Getting your  list...")
+  await onLoading?.("Getting your  list...")
   try {
     const resp = await repoTaskEdit({
       todoId: data.todoId,
@@ -77,11 +77,11 @@ export async function serviceTaskEdit({
     })
     if (!resp.ok) throw new Error((await resp.json()).message)
     const result = (await resp.json()) as unknown as ITask
-    onSuccess?.(result)
+    await onSuccess?.(result)
     return result
   } catch (error) {
     console.log(error)
-    onError?.((error as Error).message)
+    await onError?.((error as Error).message)
     return null
   }
 }
@@ -92,7 +92,7 @@ export async function serviceTaskDelete({
   onError,
   onSuccess,
 }: TServiceTaskDeleteProps): Promise<boolean | null> {
-  onLoading?.("Getting your  list...")
+  await onLoading?.("Getting your  list...")
   try {
     const resp = await repoTaskDelete({
       todoId: data.todoId,
@@ -101,11 +101,11 @@ export async function serviceTaskDelete({
     })
     if (!resp.ok) throw new Error((await resp.json()).message)
     const result = !!resp.ok
-    onSuccess?.(result)
+    await onSuccess?.(result)
     return result
   } catch (error) {
     console.log(error)
-    onError?.((error as Error).message)
+    await onError?.((error as Error).message)
     return null
   }
 }
