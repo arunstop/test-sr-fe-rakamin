@@ -79,16 +79,30 @@ function ItemSection({
   return (
     <div className="flex flex-col gap-[inherit] isolate">
       {!!tasks?.length ? (
-        tasks.map((e, idx) => {
-          return (
-            <TaskItem
-              key={e.id}
-              task={e}
-              direction={direction}
-              animDelay={100 + (idx * 50)}
-            />
-          )
-        })
+        tasks
+          .sort((a, b) => {
+            const dateA = a.updated_at
+            const dateB = b.updated_at
+            if (dateA < dateB) {
+              return -1
+            }
+            if (dateA > dateB) {
+              return 1
+            }
+
+            // names must be equal
+            return 0
+          })
+          .map((e, idx) => {
+            return (
+              <TaskItem
+                key={e.id}
+                task={e}
+                direction={direction}
+                animDelay={100 + idx * 50}
+              />
+            )
+          })
       ) : (
         <PlaceHolder>No Task</PlaceHolder>
       )}
