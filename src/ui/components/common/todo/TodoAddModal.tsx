@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
-import { useTodo } from "../../../../app/states/todo/TodoHook"
-import { ITodoInput } from "../../../../app/types/states/types-todo"
+import { useTodo } from "../../../../app/stores/todo/TodoHook"
+import { ITodoInput } from "../../../../app/types/stores/types-todo"
 import Modal, { IModalProps } from "../Modal"
 import TodoForm from "./TodoForm"
 

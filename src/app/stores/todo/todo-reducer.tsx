@@ -1,7 +1,7 @@
 import {
   ITodoContextState,
   TTodoContextActionTypes,
-} from "../../types/states/types-todo"
+} from "../../types/stores/types-todo"
 
 export const todoReducer = (
   state: ITodoContextState,

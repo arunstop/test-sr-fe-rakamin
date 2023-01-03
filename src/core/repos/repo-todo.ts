@@ -1,4 +1,4 @@
-import { ITodoInput } from "../../app/types/states/types-todo"
+import { ITodoInput } from "../../app/types/stores/types-todo"
 import { API_BASE_URL } from "../clients/api-todo"
 import { ITodo } from "../data/models/todo"
 

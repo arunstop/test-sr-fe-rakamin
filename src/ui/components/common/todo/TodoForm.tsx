@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ITodoInput } from "../../../../app/types/states/types-todo"
+import { ITodoInput } from "../../../../app/types/stores/types-todo"
 import Button from "../Button"
 import TextInput from "../TextInput"
 

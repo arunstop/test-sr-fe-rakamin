@@ -2,7 +2,7 @@ import React from "react"
 import LayoutMain from "../layouts/LayoutMain"
 import CardItem from "../components/common/CardItem"
 import { TType } from "../../app/types/commons"
-import { useTodo } from "../../app/states/todo/TodoHook"
+import { useTodo } from "../../app/stores/todo/TodoHook"
 
 function index() {
   const {state} = useTodo()

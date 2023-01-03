@@ -3,7 +3,7 @@ import { TodoContext } from "./todo-context"
 import {
   TTodoContextAction,
   TTodoContextProps,
-} from "../../types/states/types-todo"
+} from "../../types/stores/types-todo"
 import { todoReducer } from "./todo-reducer"
 import { serviceTodoAdd, serviceTodoGet } from "../../services/service-todo"
 

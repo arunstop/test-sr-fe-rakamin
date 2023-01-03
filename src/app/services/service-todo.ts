@@ -2,7 +2,7 @@ import { token } from "../../core/clients/api-todo"
 import { ITodo } from "../../core/data/models/todo"
 import { repoTodoAdd, repoTodoGet } from "../../core/repos/repo-todo"
 import { IServiceReq } from "../types/service"
-import { TServiceTodoAddProps } from "../types/states/types-todo"
+import { TServiceTodoAddProps } from "../types/stores/types-todo"
 
 export async function serviceTodoGet({
   onLoading,

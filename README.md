@@ -13,7 +13,7 @@ Core layer is the main business logic
 
 App layer is where that business logic getting used
 
-- `app/states` : sates related things, like global states/contexts
+- `app/stores` : sates related things, like global states/contexts
 - `app/types` : all app related types are here
 - `app/hooks` : app related hooks
 - `app/helpers` : app related helpers
