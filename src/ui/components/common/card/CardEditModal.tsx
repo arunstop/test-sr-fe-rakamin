@@ -24,7 +24,13 @@ function CardEditModal({
   }
   const onSubmit = useCallback(async () => {
     await editTask({
-      data: { input: data, todoId: todoId, taskId: taskId },
+      // not changing target todo id cuz only need to edits the name/progress
+      data: {
+        input: data,
+        todoId: todoId,
+        taskId: taskId,
+        targetTodoId: todoId,
+      },
       onLoading(message) {
         setLoading(true)
       },

@@ -16,7 +16,7 @@ export interface IServiceTaskData {
 
 export type IRepoTaskGetProps = Pick<IServiceTaskData, "todoId">
 export type IRepoTaskAddProps = Omit<IServiceTaskData, "taskId">
-export type IRepoTaskEditProps = IServiceTaskData
+export type IRepoTaskEditProps = IServiceTaskData & { targetTodoId: number }
 export type IRepoTaskDeleteProps = Omit<IServiceTaskData, "input">
 
 export type TServiceTaskParams<IN, OUT = ITask> = IServiceReq<IN, OUT>
@@ -25,7 +25,7 @@ export type TServiceTaskGetProps = TServiceTaskParams<
   ITask[]
 >
 export type TServiceTaskAddProps = TServiceTaskParams<IRepoTaskAddProps>
-export type TServiceTaskEditProps = TServiceTaskParams<IServiceTaskData>
+export type TServiceTaskEditProps = TServiceTaskParams<IRepoTaskEditProps>
 export type TServiceTaskDeleteProps = TServiceTaskParams<
   IRepoTaskDeleteProps,
   boolean

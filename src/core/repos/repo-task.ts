@@ -38,12 +38,13 @@ export async function repoTaskAdd({
 export async function repoTaskEdit({
   todoId,
   taskId,
+  targetTodoId,
   input,
   token,
 }: IRepoTaskEditProps & IApiToken) {
   return fetch(api + `/todos/${todoId}/items/${taskId}`, {
     method: "PATCH",
-    body: JSON.stringify({ name: input.name, target_todo_id: todoId }),
+    body: JSON.stringify({ name: input.name, target_todo_id: targetTodoId }),
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
