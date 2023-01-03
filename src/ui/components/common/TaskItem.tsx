@@ -27,9 +27,11 @@ function TaskItem({
     progress_percentage,
   },
   direction,
+  animDelay,
 }: {
   task: ITask
   direction: ICardDirection
+  animDelay: number
 }) {
   const { moveTask, deleteTask } = useTaskStore()
   const [deleteModal, setDeleteModal] = useState(false)
@@ -108,8 +110,8 @@ function TaskItem({
   return (
     <>
       <Transition
-      show
-        as={Fragment}
+        show
+        as={"div"}
         enter="transition-all duration-300 ease-out"
         enterFrom="-translate-y-0 opacity-50 scale-x-50 blur-md"
         enterTo="-translate-y-[30%] opacity-100 scale-x-100 blur-none"
@@ -118,18 +120,16 @@ function TaskItem({
         leaveFrom="-translate-y-0 opacity-100 scale-x-100 blur-none"
         leaveTo="-translate-y-[30%] opacity-50 scale-x-50 blur-md"
         appear
-      >
-        <span
-          className={`border rounded p-4 gap-3 bg-[#FAFAFA] border-[#e0e0e0] flex flex-col transition-all duration-200 
+        className={`border rounded p-4 gap-3 bg-[#FAFAFA] border-[#e0e0e0] flex flex-col transition-all duration-200 
       hover:border-black hover:-translate-y-2 hover:z-10`}
-        >
+        style={{ transitionDelay: `${animDelay}ms` }}
+      >
           <span className="font-bold">{name}</span>
           <div className="h-[1px] border-b border-dashed w-full border-neutral-[#e0e0e0]"></div>
           <div className="flex gap-6">
             <ProgressBar value={progress_percentage} done={!!done} />
             <TaskOptions trigger={optionButton} options={options} />
           </div>
-        </span>
       </Transition>
       <ConfirmationModal
         show={deleteModal}

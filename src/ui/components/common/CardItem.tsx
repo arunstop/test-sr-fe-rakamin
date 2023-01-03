@@ -10,6 +10,7 @@ import Button from "./Button"
 import Label from "./Label"
 import TaskItem from "./TaskItem"
 import CardAddModal from "./card/CardAddModal"
+import PlaceHolder from "./PlaceHolder"
 
 export interface ICardDirection {
   left?: number
@@ -35,24 +36,25 @@ function CardItem(props: {
   )
   return (
     <>
-    
-      <div
-        className={`rounded border p-[0.75rem] bg-primary-bg flex flex-col 
-        gap-[0.625rem] ${style.bg + style.border}`}
-      >
-        <div>
-          <Label text={title} type={type} />
-        </div>
-        <div className="font-bold">{description}</div>
-        {items()}
-        <div>
-          <Button
-            className="flex gap-[6.67px] items-center px-0 bg-transparent text-black"
-            onClick={() => setNewModal(true)}
-          >
-            <Icon icon="uil:plus-circle" className="text-[16.67px]" />
-            <span className="text-sm font-normal">New Task</span>
-          </Button>
+      <div className="flex items-start">
+        <div
+          className={`rounded border p-[0.75rem] bg-primary-bg flex flex-col 
+        gap-[0.625rem] ${style.bg + style.border} w-full`}
+        >
+          <div>
+            <Label text={title} type={type} />
+          </div>
+          <div className="font-bold">{description}</div>
+          {items()}
+          <div>
+            <Button
+              className="flex gap-[6.67px] items-center px-0 bg-transparent text-black"
+              onClick={() => setNewModal(true)}
+            >
+              <Icon icon="uil:plus-circle" className="text-[16.67px]" />
+              <span className="text-sm font-normal">New Task</span>
+            </Button>
+          </div>
         </div>
       </div>
       <CardAddModal
@@ -76,10 +78,20 @@ function ItemSection({
   const tasks = data[0] ? (data[0] as unknown as ITask[]) : null
   return (
     <div className="flex flex-col gap-[inherit] isolate">
-      {!!tasks &&
-        tasks.map((e) => {
-          return <TaskItem key={e.id} task={e} direction={direction} />
-        })}
+      {!!tasks?.length ? (
+        tasks.map((e, idx) => {
+          return (
+            <TaskItem
+              key={e.id}
+              task={e}
+              direction={direction}
+              animDelay={100 + (idx * 50)}
+            />
+          )
+        })
+      ) : (
+        <PlaceHolder>No Task</PlaceHolder>
+      )}
     </div>
   )
 }
