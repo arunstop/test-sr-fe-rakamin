@@ -57,6 +57,7 @@ function Button({
         if (!loadingFor) return
         setIsLoading(true)
       }}
+      disabled={!!isLoading || loading}
     >
       {(!!isLoading || loading) && (
         <span className="absolute m-auto inset-0 text-black  flex flex-1 w-full">
