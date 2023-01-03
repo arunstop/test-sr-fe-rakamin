@@ -1,17 +1,20 @@
-import React, { useCallback, useState } from "react"
-import Modal, { IModalProps } from "../Modal"
-import Button from "../Button"
-import CardForm, { ICardFormData } from "./CardForm"
+import { useCallback, useState } from "react"
 import { useTaskStore } from "../../../../app/stores/task/TaskStore"
+import { ITaskInput } from "../../../../app/types/stores/types-task"
+import Modal, { IModalProps } from "../Modal"
+import CardForm from "./CardForm"
 
 function CardAddModal({
   todoId,
   ...modalProps
 }: IModalProps & { todoId: number }) {
-  const [data, setData] = useState({ name: "", progress: 0 })
+  const [data, setData] = useState<ITaskInput>({
+    name: "",
+    progress_percentage: 0,
+  })
   const [loading, setLoading] = useState(false)
   const { addTask } = useTaskStore()
-  function onEdit(data: ICardFormData) {
+  function onEdit(data: ITaskInput) {
     setData(data)
   }
   const onSubmit = useCallback(async () => {
@@ -24,13 +27,13 @@ function CardAddModal({
         setLoading(false)
         alert(error)
       },
-      onSuccess(data){
+      onSuccess(data) {
         modalProps.onClose()
-      }
+      },
     })
 
     setLoading(false)
-    setData({ name: "", progress: 0 })
+    setData({ name: "", progress_percentage: 0 })
   }, [data])
   return (
     <Modal {...modalProps}>
