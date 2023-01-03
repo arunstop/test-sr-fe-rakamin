@@ -5,7 +5,7 @@ import { IServiceReq } from "../service"
 
 export interface ITaskInput {
   name: string
-  progress_percentage: number
+  progress_percentage: number|null
 }
 
 export interface IServiceTaskData {
@@ -16,7 +16,7 @@ export interface IServiceTaskData {
 
 export type IRepoTaskGetProps = Pick<IServiceTaskData, "todoId">
 export type IRepoTaskAddProps = Omit<IServiceTaskData, "taskId">
-export type IRepoTaskEditProps = IServiceTaskData
+export type IRepoTaskEditProps = IServiceTaskData & { targetTodoId: number }
 export type IRepoTaskDeleteProps = Omit<IServiceTaskData, "input">
 
 export type TServiceTaskParams<IN, OUT = ITask> = IServiceReq<IN, OUT>
@@ -25,7 +25,11 @@ export type TServiceTaskGetProps = TServiceTaskParams<
   ITask[]
 >
 export type TServiceTaskAddProps = TServiceTaskParams<IRepoTaskAddProps>
-export type TServiceTaskEditProps = TServiceTaskParams<IServiceTaskData>
+export type TServiceTaskEditProps = TServiceTaskParams<IRepoTaskEditProps>
+export type TServiceTaskMoveDirection= "LEFT" | "RIGHT"
+export type TServiceTaskMoveProps = TServiceTaskEditProps & {
+  direction:TServiceTaskMoveDirection
+}
 export type TServiceTaskDeleteProps = TServiceTaskParams<
   IRepoTaskDeleteProps,
   boolean
@@ -41,6 +45,7 @@ export interface IStoreTaskAction {
   getTask(props: TServiceTaskGetProps): void | Promise<void>
   addTask(props: TServiceTaskAddProps): void | Promise<void>
   editTask(props: TServiceTaskEditProps): void | Promise<void>
+  moveTask(props: TServiceTaskMoveProps): void | Promise<void>
   deleteTask(props: TServiceTaskDeleteProps): void | Promise<void>
 }
 

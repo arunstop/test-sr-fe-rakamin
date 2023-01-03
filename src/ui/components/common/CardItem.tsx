@@ -10,8 +10,18 @@ import Button from "./Button"
 import Label from "./Label"
 import TaskItem from "./TaskItem"
 import CardAddModal from "./card/CardAddModal"
+import PlaceHolder from "./PlaceHolder"
 
-function CardItem(props: { todo: ITodo; type: TType }) {
+export interface ICardDirection {
+  left?: number
+  right?: number
+}
+
+function CardItem(props: {
+  todo: ITodo
+  type: TType
+  direction: ICardDirection
+}) {
   const {
     todo: { id, title, description },
     type,
@@ -20,26 +30,31 @@ function CardItem(props: { todo: ITodo; type: TType }) {
 
   const [newModal, setNewModal] = useState(false)
   // TODO: rendering a bit too much, please
-  const items = useCallback(() => <ItemSection todoId={id} />, [id])
+  const items = useCallback(
+    () => <ItemSection todoId={id} direction={props.direction} />,
+    [id],
+  )
   return (
     <>
-      <div
-        className={`rounded border p-[0.75rem] bg-primary-bg flex flex-col 
-        gap-[0.625rem] ${style.bg + style.border}`}
-      >
-        <div>
-          <Label text={title} type={type} />
-        </div>
-        <div className="font-bold">{description}</div>
-        {items()}
-        <div>
-          <Button
-            className="flex gap-[6.67px] items-center px-0 bg-transparent text-black"
-            onClick={() => setNewModal(true)}
-          >
-            <Icon icon="uil:plus-circle" className="text-[16.67px]" />
-            <span className="text-sm font-normal">New Task</span>
-          </Button>
+      <div className="flex items-start">
+        <div
+          className={`rounded border p-[0.75rem] bg-primary-bg flex flex-col 
+        gap-[0.625rem] ${style.bg + style.border} w-full`}
+        >
+          <div>
+            <Label text={title} type={type} />
+          </div>
+          <div className="font-bold">{description}</div>
+          {items()}
+          <div>
+            <Button
+              className="flex gap-[6.67px] items-center px-0 bg-transparent text-black"
+              onClick={() => setNewModal(true)}
+            >
+              <Icon icon="uil:plus-circle" className="text-[16.67px]" />
+              <span className="text-sm font-normal">New Task</span>
+            </Button>
+          </div>
         </div>
       </div>
       <CardAddModal
@@ -52,15 +67,45 @@ function CardItem(props: { todo: ITodo; type: TType }) {
   )
 }
 
-function ItemSection({ todoId }: { todoId: number }) {
+function ItemSection({
+  todoId,
+  direction,
+}: {
+  todoId: number
+  direction: ICardDirection
+}) {
   const data = useTaskStore((state) => [state.tasks.get(todoId)], shallow)
   const tasks = data[0] ? (data[0] as unknown as ITask[]) : null
   return (
     <div className="flex flex-col gap-[inherit] isolate">
-      {!!tasks &&
-        tasks.map((e) => {
-          return <TaskItem key={e.id} task={e} />
-        })}
+      {!!tasks?.length ? (
+        tasks
+          .sort((a, b) => {
+            const dateA = a.updated_at
+            const dateB = b.updated_at
+            if (dateA < dateB) {
+              return -1
+            }
+            if (dateA > dateB) {
+              return 1
+            }
+
+            // names must be equal
+            return 0
+          })
+          .map((e, idx) => {
+            return (
+              <TaskItem
+                key={e.id}
+                task={e}
+                direction={direction}
+                animDelay={100 + idx * 50}
+              />
+            )
+          })
+      ) : (
+        <PlaceHolder>No Task</PlaceHolder>
+      )}
     </div>
   )
 }

@@ -37,6 +37,7 @@ function TodoForm({
             onBlur={(ev) => {
               onEdit({ ...data, title: ev.target.value })
             }}
+            placeholder="Type your Todo name"
           />
         </div>
         <div className="grid gap-2">
@@ -48,6 +49,7 @@ function TodoForm({
             onBlur={(ev) => {
               onEdit({ ...data, description: ev.target.value })
             }}
+            placeholder="Type your Description"
           />
         </div>
       </div>

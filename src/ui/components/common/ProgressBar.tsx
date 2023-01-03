@@ -11,9 +11,7 @@ function ProgressBar({
   done?: boolean
 }) {
   const isDone = !!done || value == 100
-  const style = getTypeStyle(
-     isDone ? "success" : !value ? "danger" : "primary",
-  )
+  const style = getTypeStyle(isDone ? "success" : !value ? "danger" : "primary")
   return (
     <div className="flex gap-4 flex-1 items-center ">
       <div className="flex h-4 rounded-full flex-1 overflow-hidden bg-[#EDEDED]">
@@ -36,7 +34,8 @@ function ProgressBar({
         />
       )}
       {/* if null*/}
-      {!!value && <span className="text-[#757575]">{value + "%"}</span>}
+      {!!value ||
+        (isDone && <span className="text-[#757575]">{value + "%"}</span>)}
     </div>
   )
 }

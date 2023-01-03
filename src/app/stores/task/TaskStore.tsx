@@ -9,6 +9,7 @@ import {
 
 export const useTaskStore = create<IStoreTask>((set) => ({
   tasks: new Map(),
+
   getTask: async (props) => {
     const res = await serviceTaskGet(props)
     if (!res || res.length == 0) return
@@ -17,6 +18,7 @@ export const useTaskStore = create<IStoreTask>((set) => ({
       return { ...old, tasks: old.tasks.set(props.data.todoId, res) }
     })
   },
+
   addTask: async (props) => {
     const res = await serviceTaskAdd(props)
     if (!res) return
@@ -29,18 +31,42 @@ export const useTaskStore = create<IStoreTask>((set) => ({
       return { ...old, tasks: old.tasks.set(props.data.todoId, freshTasks) }
     })
   },
+
   editTask: async (props) => {
     const res = await serviceTaskEdit(props)
     if (!res) return
     const freshTasks = await serviceTaskGet({
       data: { todoId: props.data.todoId },
     })
-    if (!freshTasks||freshTasks.length == 0) return
+    if (!freshTasks || freshTasks.length == 0) return
 
     set((old) => {
-      return { ...old, tasks: old.tasks.set(res.id, freshTasks) }
+      return { ...old, tasks: old.tasks.set(props.data.todoId, freshTasks) }
     })
   },
+
+  moveTask: async (props) => {
+    const res = await serviceTaskEdit(props)
+    if (!res) return
+
+    const freshTasks = await serviceTaskGet({
+      data: { todoId: props.data.todoId },
+    })
+    if (!freshTasks) return
+
+    // update target todo tasks
+    const freshTargetTasks = await serviceTaskGet({
+      data: { todoId: props.data.targetTodoId },
+    })
+    if (!freshTargetTasks) return
+
+    set((old) => {
+      old.tasks.set(props.data.todoId, freshTasks)
+      old.tasks.set(props.data.targetTodoId, freshTargetTasks)
+      return { ...old }
+    })
+  },
+
   deleteTask: async (props) => {
     const res = await serviceTaskDelete(props)
     if (!res) return
@@ -49,8 +75,8 @@ export const useTaskStore = create<IStoreTask>((set) => ({
     })
     if (!freshTasks) return
     set((old) => {
-        return { ...old, tasks: old.tasks.set(props.data.todoId, freshTasks) }
-      })
+      return { ...old, tasks: old.tasks.set(props.data.todoId, freshTasks) }
+    })
     //   non fresh
     // set((old) => {
     //   //  DELETE the entry

@@ -16,8 +16,8 @@ function CardForm({
   onClose: () => void
   loading: boolean
 }) {
-  const [name, setName] = useState("")
-  const [progress, setProgress] = useState(0)
+  const [name, setName] = useState(data.name)
+  const [progress, setProgress] = useState(data.progress_percentage||0)
   return (
     <form
       className="flex flex-col gap-2 sm:gap-4 px-6"
@@ -36,6 +36,7 @@ function CardForm({
             onBlur={(ev) => {
               onEdit({ ...data, name: ev.target.value })
             }}
+            placeholder="Type your Task"
           />
         </div>
         <div className="grid gap-2">
@@ -57,6 +58,7 @@ function CardForm({
             onBlur={(ev) => {
               onEdit({ ...data, progress_percentage: parseInt(ev.target.value) })
             }}
+            placeholder="70%"
           />
         </div>
       </div>

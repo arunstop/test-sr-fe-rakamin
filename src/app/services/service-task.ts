@@ -6,15 +6,11 @@ import {
   repoTaskEdit,
   repoTaskGet,
 } from "../../core/repos/repo-task"
-import { IServiceReq } from "../types/service"
 import {
-  IServiceTaskData,
-  ITaskInput,
   TServiceTaskAddProps,
   TServiceTaskDeleteProps,
   TServiceTaskEditProps,
   TServiceTaskGetProps,
-  TServiceTaskParams,
 } from "../types/stores/types-task"
 
 export async function serviceTaskGet({
@@ -71,6 +67,7 @@ export async function serviceTaskEdit({
   try {
     const resp = await repoTaskEdit({
       todoId: data.todoId,
+      targetTodoId: data.targetTodoId,
       taskId: data.taskId,
       input: data.input,
       token: token,
