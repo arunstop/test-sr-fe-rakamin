@@ -5,7 +5,7 @@ import { IServiceReq } from "../service"
 
 export interface ITaskInput {
   name: string
-  progress: number
+  progress_percentage: number
 }
 
 export interface IServiceTaskData {
