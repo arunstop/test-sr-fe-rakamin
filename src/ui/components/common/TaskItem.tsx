@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { Fragment, useState } from "react"
 import { TType } from "../../../app/types/commons"
 import { getTypeStyle } from "../../helpers/style"
 import { ITask } from "../../../core/data/models/task"
@@ -14,6 +14,7 @@ import CardEditModal from "./card/CardEditModal"
 import { TServiceTaskMoveDirection } from "../../../app/types/stores/types-task"
 import { useTodo } from "../../../app/stores/todo/TodoHook"
 import { ICardDirection } from "./CardItem"
+import { Transition } from "@headlessui/react"
 
 function TaskItem({
   task: {
@@ -77,11 +78,13 @@ function TaskItem({
     {
       icon: <Icon icon="uil:arrow-left" />,
       title: "Move Left",
+      hidden: !direction.left,
       action: () => exeMoveTask("LEFT"),
     },
     {
       icon: <Icon icon="uil:arrow-right" />,
       title: "Move Right",
+      hidden: !direction.right,
       action: () => exeMoveTask("RIGHT"),
     },
     {
@@ -104,17 +107,30 @@ function TaskItem({
 
   return (
     <>
-      <span
-        className={`border rounded p-4 gap-3 bg-[#FAFAFA] border-[#e0e0e0] flex flex-col transition-all duration-200 
-      hover:border-black hover:-translate-y-2 hover:z-10`}
+      <Transition
+      show
+        as={Fragment}
+        enter="transition-all duration-300 ease-out"
+        enterFrom="-translate-y-0 opacity-50 scale-x-50 blur-md"
+        enterTo="-translate-y-[30%] opacity-100 scale-x-100 blur-none"
+        entered="-translate-y-[0%]"
+        leave="transition-all duration-300 ease-in"
+        leaveFrom="-translate-y-0 opacity-100 scale-x-100 blur-none"
+        leaveTo="-translate-y-[30%] opacity-50 scale-x-50 blur-md"
+        appear
       >
-        <span className="font-bold">{name}</span>
-        <div className="h-[1px] border-b border-dashed w-full border-neutral-[#e0e0e0]"></div>
-        <div className="flex gap-6">
-          <ProgressBar value={progress_percentage} done={!!done} />
-          <TaskOptions trigger={optionButton} options={options} />
-        </div>
-      </span>
+        <span
+          className={`border rounded p-4 gap-3 bg-[#FAFAFA] border-[#e0e0e0] flex flex-col transition-all duration-200 
+      hover:border-black hover:-translate-y-2 hover:z-10`}
+        >
+          <span className="font-bold">{name}</span>
+          <div className="h-[1px] border-b border-dashed w-full border-neutral-[#e0e0e0]"></div>
+          <div className="flex gap-6">
+            <ProgressBar value={progress_percentage} done={!!done} />
+            <TaskOptions trigger={optionButton} options={options} />
+          </div>
+        </span>
+      </Transition>
       <ConfirmationModal
         show={deleteModal}
         onClose={closeDeleteModal}
