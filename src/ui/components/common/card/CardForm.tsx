@@ -12,11 +12,13 @@ function CardForm({
   onEdit,
   onSubmit,
   onClose,
+  loading,
 }: {
   data: ICardFormData
   onSubmit: () => void
   onEdit: (data: ICardFormData) => void
   onClose: () => void
+  loading:boolean
 }) {
   const [name, setName] = useState("")
   const [progress, setProgress] = useState(0)
@@ -63,7 +65,7 @@ function CardForm({
         </div>
       </div>
       <div className="flex justify-end gap-[0.625rem] py-6 w-full">
-        <Button className="" onClick={onClose} type="submit">
+        <Button className="" type="submit" loading={loading}>
           Save Task
         </Button>
         <Button
