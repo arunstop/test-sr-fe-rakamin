@@ -1,5 +1,7 @@
 import { Icon } from "@iconify-icon/react"
-import { useState } from "react"
+import { useCallback, useState } from "react"
+import shallow from "zustand/shallow"
+import { useTaskStore } from "../../../app/stores/task/TaskStore"
 import { TType } from "../../../app/types/commons"
 import { ITask } from "../../../core/data/models/task"
 import { ITodo } from "../../../core/data/models/todo"
@@ -8,7 +10,6 @@ import Button from "./Button"
 import Label from "./Label"
 import TaskItem from "./TaskItem"
 import CardAddModal from "./card/CardAddModal"
-import { useTaskStore } from "../../../app/stores/task/TaskStore"
 
 function CardItem(props: { todo: ITodo; type: TType }) {
   const {
@@ -17,10 +18,9 @@ function CardItem(props: { todo: ITodo; type: TType }) {
   } = props
   const style = getTypeStyle(type)
 
-  const data = useTaskStore((state) => [state.tasks.get(id)])
-  const tasks = data[0] ? (data[0] as unknown as ITask[]) : null
   const [newModal, setNewModal] = useState(false)
-
+  // TODO: rendering a bit too much, please fix
+  const items = useCallback(() => <ItemSection todoId={id} />, [id])
   return (
     <>
       <div
@@ -28,15 +28,10 @@ function CardItem(props: { todo: ITodo; type: TType }) {
         gap-[0.625rem] ${style.bg + style.border}`}
       >
         <div>
-          <Label text={title} type={type} />
+          <Label text={Date.now() + ""} type={type} />
         </div>
         <div className="font-bold">{description}</div>
-        <div className="flex flex-col gap-[inherit] isolate">
-          {!!tasks &&
-            tasks.map((e) => {
-              return <TaskItem key={e.id} task={e} />
-            })}
-        </div>
+        {items()}
         <div>
           <Button
             className="flex gap-[6.67px] items-center px-0 bg-transparent text-black"
@@ -54,6 +49,19 @@ function CardItem(props: { todo: ITodo; type: TType }) {
         todoId={id}
       />
     </>
+  )
+}
+
+function ItemSection({ todoId }: { todoId: number }) {
+  const data = useTaskStore((state) => [state.tasks.get(todoId)], shallow)
+  const tasks = data[0] ? (data[0] as unknown as ITask[]) : null
+  return (
+    <div className="flex flex-col gap-[inherit] isolate">
+      {!!tasks &&
+        tasks.map((e) => {
+          return <TaskItem key={e.id} task={e} />
+        })}
+    </div>
   )
 }
 
