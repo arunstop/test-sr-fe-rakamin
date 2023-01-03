@@ -8,6 +8,7 @@ import { Icon } from "@iconify-icon/react"
 import ConfirmationModal from "./ConfirmationModal"
 import DropDown from "./DropDown"
 import TaskOptions, { ICardOption } from "./TaskOptions"
+import { useTaskStore } from "../../../app/stores/task/TaskStore"
 
 function TaskItem({
   task: {
@@ -22,15 +23,27 @@ function TaskItem({
 }: {
   task: ITask
 }) {
+  const { deleteTask } = useTaskStore()
   const [deleteModal, setDeleteModal] = useState(false)
-
+  const [loading, setLoading] = useState(false)
   function closeDeleteModal() {
     setDeleteModal(false)
   }
 
-  function deleteTask() {
-    console.log("deleted", "yessir")
-    closeDeleteModal()
+  async function confirmDeleteTask() {
+    await deleteTask({
+      data: { taskId: id, todoId: todo_id },
+      onLoading(message) {
+        setLoading(true)
+      },
+      async onError(error) {
+        alert(error)
+      },
+      onSuccess(data) {
+        closeDeleteModal()
+      },
+    })
+    setLoading(false)
   }
 
   const optionButton = (
@@ -77,7 +90,7 @@ function TaskItem({
         title="Delete Task"
         type="danger"
         desc="Are you sure want to delete this task? your action can’t be reverted."
-        ok={{ label: "Delete", action: deleteTask }}
+        ok={{ label: "Delete", action: confirmDeleteTask }}
         cancel={{ label: "Cancel", action: closeDeleteModal }}
       />
     </>

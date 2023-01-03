@@ -47,14 +47,18 @@ export const useTaskStore = create<IStoreTask>((set) => ({
     const freshTasks = await serviceTaskGet({
       data: { todoId: props.data.todoId },
     })
-    if (!freshTasks||freshTasks.length == 0) return
+    if (!freshTasks) return
     set((old) => {
-      //  DELETE the entry
-      old.tasks.delete(2)
-      // then reassign it
-      // cuz returning with `old` params name only doesn't work
-      // needs to be spread first
-      return { ...old }
-    })
+        return { ...old, tasks: old.tasks.set(props.data.todoId, freshTasks) }
+      })
+    //   non fresh
+    // set((old) => {
+    //   //  DELETE the entry
+    //   old.tasks.delete(2)
+    //   // then reassign it
+    //   // cuz returning with `old` params name only doesn't work
+    //   // needs to be spread first
+    //   return { ...old }
+    // })
   },
 }))
