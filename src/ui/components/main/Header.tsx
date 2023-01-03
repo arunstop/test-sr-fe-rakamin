@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Button from "../common/Button"
 import { Icon } from "@iconify-icon/react"
 import { serviceTodoAdd } from "../../../app/services/service-todo"
-import { useTodo } from "../../../app/states/todo/TodoHook"
+import { useTodo } from "../../../app/stores/todo/TodoHook"
 import Modal from "../common/Modal"
 import TodoAddModal from "../common/todo/TodoAddModal"
 
