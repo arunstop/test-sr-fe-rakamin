@@ -36,6 +36,7 @@ function CardForm({
             onBlur={(ev) => {
               onEdit({ ...data, name: ev.target.value })
             }}
+            placeholder="Type your Task"
           />
         </div>
         <div className="grid gap-2">
@@ -57,6 +58,7 @@ function CardForm({
             onBlur={(ev) => {
               onEdit({ ...data, progress_percentage: parseInt(ev.target.value) })
             }}
+            placeholder="70%"
           />
         </div>
       </div>
