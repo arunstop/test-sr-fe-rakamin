@@ -6,9 +6,11 @@ import {
 } from "../../types/stores/types-todo"
 import { todoReducer } from "./todo-reducer"
 import { serviceTodoAdd, serviceTodoGet } from "../../services/service-todo"
+import { useTaskStore } from "../task/TaskStore"
 
 function TodoProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(todoReducer, { data: [] })
+  const getTask = useTaskStore().getTask
   const action: TTodoContextAction = {
     addTodo: async (params) => {
       const res = await serviceTodoAdd(params)
@@ -18,6 +20,9 @@ function TodoProvider({ children }: { children: ReactNode }) {
     initTodo: async () => {
       const todos = await serviceTodoGet({ data: { key: "" } })
       if (!todos) return
+      todos.map((e) => {
+        getTask({ data: { todoId: e.id } })
+      })
       dispatch({ type: "INIT_TODO", payload: todos })
     },
   }
