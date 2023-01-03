@@ -12,14 +12,20 @@ export interface ITodoContextState {
 }
 
 export interface TTodoContextAction {
-  addTodo(input: ITodoInput): Promise<void>
+  addTodo(input: TServiceTodoAddProps): Promise<void>
+  initTodo(): Promise<void>
 }
 
 // For reducers
-export type TTodoContextActionTypes = {
-  type: "ADD_TODO"
-  payload: { todo: ITodo }
-}
+export type TTodoContextActionTypes =
+  | {
+      type: "ADD_TODO"
+      payload: ITodo
+    }
+  | {
+      type: "INIT_TODO"
+      payload: ITodo[]
+    }
 
 // service
 export interface ITodoInput {
@@ -28,7 +34,4 @@ export interface ITodoInput {
 }
 
 // adding todo
-export type TServiceTodoAddProps = IServiceReq<
-  { key: string; input: ITodoInput },
-  ITodo
->
+export type TServiceTodoAddProps = IServiceReq<{ input: ITodoInput }, ITodo>

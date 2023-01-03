@@ -3,17 +3,13 @@ import { API_BASE_URL } from "../clients/api-todo"
 import { ITodo } from "../data/models/todo"
 
 const api = API_BASE_URL
-export async function repoTodoGet({
-  token,
-}: {
-  token: string
-}): Promise<ITodo[]> {
-  return (await fetch(api + "/todos", {
+export async function repoTodoGet({ token }: { token: string }) {
+  return fetch(api + "/todos", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })) as unknown as ITodo[]
+  })
 }
 
 export async function repoTodoAdd({
@@ -22,13 +18,13 @@ export async function repoTodoAdd({
 }: {
   input: ITodoInput
   token: string
-}): Promise<ITodo> {
-  return (await fetch(api + "/todos", {
+}) {
+  return fetch(api + "/todos", {
     method: "POST",
     body: JSON.stringify(input),
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-  })) as unknown as ITodo
+  })
 }

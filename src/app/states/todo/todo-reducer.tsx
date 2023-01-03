@@ -9,8 +9,11 @@ export const todoReducer = (
 ): ITodoContextState => {
   switch (action.type) {
     case "ADD_TODO": {
-      return { data: [...state.data, action.payload.todo] }
+      return { data: [...state.data, action.payload] }
     }
+    case "INIT_TODO": {
+        return { data:action.payload }
+      }
     default: {
       return state
     }
