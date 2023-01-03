@@ -48,7 +48,7 @@ function ConfirmationModal({
     <Modal {...props} titleIcon={getIcon(type)}>
       <div className="px-6">{desc}</div>
       <div className="flex justify-end gap-[0.625rem] p-6 w-full ${style.bgMain}">
-        <Button className={`${style.bgMain}`} onClick={() => ok?.action()} type="submit">
+        <Button className={`${style.bgMain}`} onClick={() => ok?.action()} loadingFor={2000}>
           {ok?.label || "Okay"}
         </Button>
         <Button
