@@ -1,11 +1,7 @@
 import React, { useState } from "react"
 import Button from "../Button"
 import TextInput from "../TextInput"
-
-export interface ICardFormData {
-  name: string
-  progress: number
-}
+import { ITaskInput } from "../../../../app/types/stores/types-task"
 
 function CardForm({
   data,
@@ -14,11 +10,11 @@ function CardForm({
   onClose,
   loading,
 }: {
-  data: ICardFormData
+  data: ITaskInput
   onSubmit: () => void
-  onEdit: (data: ICardFormData) => void
+  onEdit: (data: ITaskInput) => void
   onClose: () => void
-  loading:boolean
+  loading: boolean
 }) {
   const [name, setName] = useState("")
   const [progress, setProgress] = useState(0)
@@ -59,7 +55,7 @@ function CardForm({
             min={0}
             max={100}
             onBlur={(ev) => {
-              onEdit({ ...data, progress: parseInt(ev.target.value) })
+              onEdit({ ...data, progress_percentage: parseInt(ev.target.value) })
             }}
           />
         </div>
