@@ -19,7 +19,7 @@ function CardItem(props: { todo: ITodo; type: TType }) {
   const style = getTypeStyle(type)
 
   const [newModal, setNewModal] = useState(false)
-  // TODO: rendering a bit too much, please fix
+  // TODO: rendering a bit too much, please
   const items = useCallback(() => <ItemSection todoId={id} />, [id])
   return (
     <>
@@ -28,7 +28,7 @@ function CardItem(props: { todo: ITodo; type: TType }) {
         gap-[0.625rem] ${style.bg + style.border}`}
       >
         <div>
-          <Label text={Date.now() + ""} type={type} />
+          <Label text={title} type={type} />
         </div>
         <div className="font-bold">{description}</div>
         {items()}
