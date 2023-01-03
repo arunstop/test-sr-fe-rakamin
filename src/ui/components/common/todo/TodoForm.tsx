@@ -57,6 +57,7 @@ function TodoForm({
         </Button>
         <Button
           className="border border-[#E0E0E0] bg-white text-black shadow-[0px_1px_2px] shadow-black/[0.12] order-first"
+          type="button"
           onClick={onClose}
         >
           Cancel
