@@ -160,7 +160,7 @@ const TaskItemContent = React.forwardRef<
 >((props, ref) => {
   const { task, animDelay, options = [] } = props
   const optionButton = (
-    <Button className="px-0 text-[1.5rem] bg-transparent text-[#757575] hover:!bg-[#EDEDED] rounded">
+    <Button className="px-0 text-[1.5rem] bg-transparent text-[#757575] hover:!bg-[#EDEDED] rounded py-0">
       <Icon icon="fe:elipsis-h" />
     </Button>
   )

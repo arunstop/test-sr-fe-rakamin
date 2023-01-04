@@ -38,17 +38,17 @@ function CardItem(props: {
     <>
       <div className="flex items-start">
         <div
-          className={`rounded border p-[0.75rem] bg-primary-bg flex flex-col 
-        gap-[0.625rem] ${style.bg + style.border} w-full`}
+          className={`rounded border p-4 bg-primary-bg flex flex-col gap-[0.625rem] w-full
+          ${style.bg + style.border}`}
         >
           <div>
             <Label text={title} type={type} />
           </div>
           <div className="font-bold text-sm">{description}</div>
           {items()}
-          <div>
+          <div className="flex h-min">
             <Button
-              className="flex gap-[6.67px] items-center px-0 bg-transparent text-black"
+              className="flex gap-[6.67px] items-center px-0 py-0 bg-transparent text-black"
               onClick={() => setNewModal(true)}
             >
               <Icon icon="uil:plus-circle" className="text-[16.67px]" />
