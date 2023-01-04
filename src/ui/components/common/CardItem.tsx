@@ -44,7 +44,7 @@ function CardItem(props: {
           <div>
             <Label text={title} type={type} />
           </div>
-          <div className="font-bold">{description}</div>
+          <div className="font-bold text-sm">{description}</div>
           {items()}
           <div>
             <Button
