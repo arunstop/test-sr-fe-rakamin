@@ -60,7 +60,7 @@ function Button({
           className="btn-loading-el absolute m-auto inset-0 text-black  flex flex-1 w-full z-[10] bg-[#e0e0e0]/10 
           rounded-[inherit] backdrop-blur-sm"
         >
-          <Icon icon="eos-icons:loading" className="m-auto  text-base" />
+          <Icon icon="eos-icons:loading" className="m-auto  text-md" />
         </span>
       )}
       {children}
