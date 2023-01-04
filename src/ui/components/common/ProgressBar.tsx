@@ -34,8 +34,9 @@ function ProgressBar({
         />
       )}
       {/* if null*/}
-      {!!value ||
-        (isDone && <span className="text-[#757575]">{value + "%"}</span>)}
+      {(!!value || isDone) && (
+        <span className="text-[#757575]">{value + "%"}</span>
+      )}
     </div>
   )
 }
