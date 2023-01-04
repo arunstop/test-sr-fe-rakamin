@@ -2,7 +2,7 @@
   "name": "test-sr-fe-rakamin",
   "private": true,
   "version": "1.0.0",
-  "homepage":"https://arunseto-rakamin-2.vercel.app/",
+  "homepage":"/v1",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3030",
