@@ -39,7 +39,7 @@ module.exports = {
       },
       fontSize:{
         'sm':['12px','20px'],
-        'base':['14px','24px'],
+        'md':['14px','24px'],
         'lg':['16px','26px'],
         'xl':['18px','28px'],
         '2xl':['22px','30px'],
@@ -50,10 +50,10 @@ module.exports = {
     },
   },
   plugins: [
-    // require("tailwindcss/plugin")(function ({ addBase }) {
-    //   addBase({
-    //     html: { fontSize: "14px" },
-    //   })
-    // }),
+    require("tailwindcss/plugin")(function ({ addBase }) {
+      addBase({
+        html: { fontSize: "16px" },
+      })
+    }),
   ],
 }
