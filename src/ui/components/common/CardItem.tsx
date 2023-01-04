@@ -27,16 +27,44 @@ function CardItem(props: {
     type,
   } = props
   const style = getTypeStyle(type)
-
+  const { moveTask } = useTaskStore()
   const [newModal, setNewModal] = useState(false)
   // TODO: rendering a bit too much, please
   const items = useCallback(
     () => <ItemSection todoId={id} direction={props.direction} />,
     [id],
   )
+  async function handleOnDrop(ev: React.DragEvent<HTMLDivElement>) {
+    ev.preventDefault()
+    const data = ev.dataTransfer.getData("text/plain")
+    if (!data) return
+    const task = JSON.parse(data) as unknown as ITask
+    await moveTask({
+      data: {
+        input: {
+          name: task.name,
+          progress_percentage: task.progress_percentage,
+        },
+        targetTodoId: id,
+        taskId: task.id,
+        todoId: task.todo_id,
+      },
+    })
+  }
+
   return (
     <>
-      <div className="flex items-start">
+      <div
+        className="flex items-start"
+        onDragOver={(ev) => {
+          ev.preventDefault()
+        }}
+        // onDragEnter={handleDragEnter}
+        // onDragLeave={handleDragLeave}
+        // onDragEnd={handleDragEnd}
+        onDrop={handleOnDrop}
+        // onDragEnd={handleDragEnd}
+      >
         <div
           className={`rounded border p-4 bg-primary-bg flex flex-col gap-[0.625rem] w-full
           ${style.bg + style.border}`}
@@ -74,7 +102,6 @@ function ItemSection({
   todoId: number
   direction: ICardDirection
 }) {
-  const { moveTask } = useTaskStore()
   const data = useTaskStore((state) => [state.tasks.get(todoId)], shallow)
   const tasks = data[0] ? (data[0] as unknown as ITask[]) : null
   const sortedTasks = !tasks
@@ -124,41 +151,8 @@ function ItemSection({
   //   })
   // }
 
-  async function handleOnDrop(ev: React.DragEvent<HTMLDivElement>) {
-    ev.preventDefault()
-    const data = ev.dataTransfer.getData("text/plain")
-    if (!data) return
-    const task = JSON.parse(data) as unknown as ITask
-    await moveTask({
-      data: {
-        input: {
-          name: task.name,
-          progress_percentage: task.progress_percentage,
-        },
-        targetTodoId: todoId,
-        taskId: task.id,
-        todoId: task.todo_id,
-      },
-    })
-  }
-
-  // useEffect(() => {
-  //   console.log(preview, Date.now())
-  //   return () => {}
-  // }, [preview])
   return (
-    <div
-      id="drag-wrapper"
-      className={`flex flex-col gap-[inherit] isolate `}
-      onDragOver={(ev) => {
-        ev.preventDefault()
-      }}
-      // onDragEnter={handleDragEnter}
-      // onDragLeave={handleDragLeave}
-      // onDragEnd={handleDragEnd}
-      onDrop={handleOnDrop}
-      // onDragEnd={handleDragEnd}
-    >
+    <div className={`flex flex-col gap-[inherit] isolate `}>
       {sortedTasks.length ? (
         sortedTasks.map((e, idx) => {
           return (
