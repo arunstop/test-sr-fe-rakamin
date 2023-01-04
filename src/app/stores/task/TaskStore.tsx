@@ -38,7 +38,7 @@ export const useTaskStore = create<IStoreTask>((set) => ({
     const freshTasks = await serviceTaskGet({
       data: { todoId: props.data.todoId },
     })
-    if (!freshTasks || freshTasks.length == 0) return
+    if (!freshTasks) return
 
     set((old) => {
       return { ...old, tasks: old.tasks.set(props.data.todoId, freshTasks) }

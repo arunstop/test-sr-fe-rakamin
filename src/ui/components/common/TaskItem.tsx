@@ -16,23 +16,27 @@ import { useTodo } from "../../../app/stores/todo/TodoHook"
 import { ICardDirection } from "./CardItem"
 import { Transition } from "@headlessui/react"
 
-function TaskItem({
-  task: {
-    id,
-    name,
-    done,
-    todo_id,
-    created_at,
-    updated_at,
-    progress_percentage,
-  },
-  direction,
-  animDelay,
-}: {
+export interface ITaskItem {
   task: ITask
   direction: ICardDirection
-  animDelay: number
-}) {
+  animDelay?: number
+}
+
+function TaskItem(props: ITaskItem) {
+  const {
+    task,
+    task: {
+      id,
+      name,
+      done,
+      todo_id,
+      created_at,
+      updated_at,
+      progress_percentage,
+    },
+    direction,
+    animDelay,
+  } = props
   const { moveTask, deleteTask } = useTaskStore()
   const [deleteModal, setDeleteModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
@@ -107,11 +111,15 @@ function TaskItem({
     </Button>
   )
 
+  function handleDragStart(ev: React.DragEvent<HTMLDivElement>) {
+    ev.dataTransfer.setData("text/plain", JSON.stringify(task))
+  }
+
   return (
     <>
       <Transition
         show
-        as={"div"}
+        as={TaskItemContent}
         enter="transition-all duration-300 ease-out"
         enterFrom="-translate-y-0 opacity-50 scale-x-50 blur-md"
         enterTo="-translate-y-[30%] opacity-100 scale-x-100 blur-none"
@@ -120,17 +128,11 @@ function TaskItem({
         leaveFrom="-translate-y-0 opacity-100 scale-x-100 blur-none"
         leaveTo="-translate-y-[30%] opacity-50 scale-x-50 blur-md"
         appear
-        className={`border rounded p-4 gap-3 bg-[#FAFAFA] border-[#e0e0e0] flex flex-col transition-all duration-200 
-      hover:border-black hover:-translate-y-2 hover:z-10`}
-        style={{ transitionDelay: `${animDelay}ms` }}
-      >
-          <span className="font-bold">{name}</span>
-          <div className="h-[1px] border-b border-dashed w-full border-neutral-[#e0e0e0]"></div>
-          <div className="flex gap-6">
-            <ProgressBar value={progress_percentage} done={!!done} />
-            <TaskOptions trigger={optionButton} options={options} />
-          </div>
-      </Transition>
+        task={task}
+        direction={direction}
+        animDelay={animDelay}
+        options={options}
+      />
       <ConfirmationModal
         show={deleteModal}
         onClose={closeDeleteModal}
@@ -151,5 +153,40 @@ function TaskItem({
     </>
   )
 }
+
+const TaskItemContent = React.forwardRef<
+  HTMLDivElement,
+  ITaskItem & { options?: ICardOption[] }
+>((props, ref) => {
+  const { task, animDelay, options = [] } = props
+  const optionButton = (
+    <Button className="px-0 text-[1.5rem] bg-transparent text-[#757575] hover:!bg-[#EDEDED] rounded">
+      <Icon icon="fe:elipsis-h" />
+    </Button>
+  )
+
+  function handleDragStart(ev: React.DragEvent<HTMLDivElement>) {
+    ev.dataTransfer.setData("text/plain", JSON.stringify(task))
+  }
+  return (
+    <div
+      ref={ref}
+      className={`border rounded p-4 gap-3 bg-[#FAFAFA] border-[#e0e0e0] flex flex-col transition-all duration-200 
+      hover:border-black hover:-translate-y-2 hover:z-10`}
+      style={{ transitionDelay: `${animDelay}ms` }}
+      onDragStart={handleDragStart}
+      draggable
+      id={task.name}
+      data-task={JSON.stringify(task)}
+    >
+      <span className="font-bold">{task.name}</span>
+      <div className="h-[1px] border-b border-dashed w-full border-neutral-[#e0e0e0]"></div>
+      <div className="flex gap-6">
+        <ProgressBar value={task.progress_percentage} done={!!task.done} />
+        <TaskOptions trigger={optionButton} options={options} />
+      </div>
+    </div>
+  )
+})
 
 export default TaskItem

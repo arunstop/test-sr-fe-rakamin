@@ -1,5 +1,5 @@
 import { Icon } from "@iconify-icon/react"
-import { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import shallow from "zustand/shallow"
 import { useTaskStore } from "../../../app/stores/task/TaskStore"
 import { TType } from "../../../app/types/commons"
@@ -74,38 +74,115 @@ function ItemSection({
   todoId: number
   direction: ICardDirection
 }) {
+  const { moveTask } = useTaskStore()
   const data = useTaskStore((state) => [state.tasks.get(todoId)], shallow)
   const tasks = data[0] ? (data[0] as unknown as ITask[]) : null
-  return (
-    <div className="flex flex-col gap-[inherit] isolate">
-      {!!tasks?.length ? (
-        tasks
-          .sort((a, b) => {
-            const dateA = a.updated_at
-            const dateB = b.updated_at
-            if (dateA < dateB) {
-              return -1
-            }
-            if (dateA > dateB) {
-              return 1
-            }
+  const sortedTasks = !tasks
+    ? []
+    : tasks.sort((a, b) => {
+        const dateA = a.updated_at
+        const dateB = b.updated_at
+        if (dateA < dateB) {
+          return -1
+        }
+        if (dateA > dateB) {
+          return 1
+        }
 
-            // names must be equal
-            return 0
-          })
-          .map((e, idx) => {
-            return (
-              <TaskItem
-                key={e.id}
-                task={e}
-                direction={direction}
-                animDelay={100 + idx * 50}
-              />
-            )
-          })
+        // names must be equal
+        return 0
+      })
+  // const [preview, setPreview] = useState<ITask>()
+  // function handleDragEnter(ev: React.DragEvent<HTMLDivElement>) {
+  //   ev.preventDefault()
+  //   const attr = (ev.target as HTMLDivElement).getAttribute("data-task")
+  //   if (!attr) return
+  //   const task = JSON.parse(attr) as ITask
+  //   // if(todoId === task.todo_id) return
+  //   setPreview((old) => {
+  //     if (old?.id === task.id) return old
+  //     return task
+  //   })
+  // }
+  // function handleDragLeave(ev: React.DragEvent<HTMLDivElement>) {
+  //   // check if the dragging event leaving the wrapper
+  //   // by disabling children's pointer events
+  //   if (preview && (ev.target as HTMLDivElement).id === "drag-wrapper")
+  //     return setPreview(undefined)
+  // }
+
+  // function handleDragEnd(ev: React.DragEvent<HTMLDivElement>) {
+  //   // check if the dragging event leaving the wrapper
+  //   const attr = (ev.target as HTMLDivElement).getAttribute("data-task")
+  //   if (!attr) return
+  //   const task = JSON.parse(attr) as ITask
+  //   if(todoId === task.todo_id) return
+  //   console.log("Capture",Date.now(),task)
+  //   setPreview((old) => {
+  //     if (old?.id === task.id) return undefined
+  //     return task
+  //   })
+  // }
+
+  async function handleOnDrop(ev: React.DragEvent<HTMLDivElement>) {
+    ev.preventDefault()
+    const data = ev.dataTransfer.getData("text/plain")
+    if (!data) return
+    const task = JSON.parse(data) as unknown as ITask
+    await moveTask({
+      data: {
+        input: {
+          name: task.name,
+          progress_percentage: task.progress_percentage,
+        },
+        targetTodoId: todoId,
+        taskId: task.id,
+        todoId: task.todo_id,
+      },
+    })
+  }
+
+  // useEffect(() => {
+  //   console.log(preview, Date.now())
+  //   return () => {}
+  // }, [preview])
+  return (
+    <div
+      id="drag-wrapper"
+      className={`flex flex-col gap-[inherit] isolate `}
+      onDragOver={(ev) => {
+        ev.preventDefault()
+      }}
+      // onDragEnter={handleDragEnter}
+      // onDragLeave={handleDragLeave}
+      // onDragEnd={handleDragEnd}
+      onDrop={handleOnDrop}
+      // onDragEnd={handleDragEnd}
+    >
+      {sortedTasks.length ? (
+        sortedTasks.map((e, idx) => {
+          return (
+            <TaskItem
+              key={e.id}
+              task={e}
+              direction={direction}
+              animDelay={100 + idx * 50}
+            />
+          )
+        })
       ) : (
         <PlaceHolder>No Task</PlaceHolder>
       )}
+      {/* {preview && (
+        <div className=" bg-primary-main/50 [&>*]:opacity-50 rounded blur-sm">
+          <TaskItem
+            key={preview.id}
+            task={preview}
+            direction={direction}
+            // animDelay={100 + idx * 50}
+          />
+        </div>
+      )} */}
     </div>
   )
 }
