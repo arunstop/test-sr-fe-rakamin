@@ -76,7 +76,7 @@ function TaskItem(props: ITaskItem) {
         todoId: todo_id,
         targetTodoId: target,
       },
-      direction: dir,
+      // direction: dir,
     })
   }
 

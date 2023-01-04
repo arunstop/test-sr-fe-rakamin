@@ -45,7 +45,7 @@ export interface IStoreTaskAction {
   getTask(props: TServiceTaskGetProps): void | Promise<void>
   addTask(props: TServiceTaskAddProps): void | Promise<void>
   editTask(props: TServiceTaskEditProps): void | Promise<void>
-  moveTask(props: TServiceTaskMoveProps): void | Promise<void>
+  moveTask(props: TServiceTaskEditProps): void | Promise<void>
   deleteTask(props: TServiceTaskDeleteProps): void | Promise<void>
 }
 
