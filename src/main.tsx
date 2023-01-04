@@ -11,7 +11,6 @@ import App from "./ui/pages/index"
 // }
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
     <BrowserRouter basename="v1">
       <Routes>
         <Route
@@ -25,5 +24,4 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>,
 )
