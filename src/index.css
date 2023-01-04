@@ -6,6 +6,9 @@
 
 @layer base {
   html {
-    @apply font-nunito-sans text-base
+    @apply font-nunito-sans;
+  }
+  body {
+    @apply text-md;
   }
 }
