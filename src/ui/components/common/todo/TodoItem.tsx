@@ -1,5 +1,5 @@
 import { Icon } from "@iconify-icon/react"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useState } from "react"
 import shallow from "zustand/shallow"
 import { useTaskStore } from "../../../../app/stores/task/TaskStore"
 import { TType } from "../../../../app/types/commons"
@@ -7,10 +7,10 @@ import { ITask } from "../../../../core/data/models/task"
 import { ITodo } from "../../../../core/data/models/todo"
 import { getTypeStyle } from "../../../helpers/style"
 import Button from "../Button"
+import { Card } from "../Card"
 import Label from "../Label"
-import TaskItem from "../task/TaskItem"
 import TaskAddModal from "../task/TaskAddModal"
-import PlaceHolder from "../PlaceHolder"
+import TaskItem from "../task/TaskItem"
 
 export interface ICardDirection {
   left?: number
@@ -65,8 +65,8 @@ function TodoItem(props: {
         onDrop={handleOnDrop}
         // onDragEnd={handleDragEnd}
       >
-        <div
-          className={`rounded border p-4 bg-primary-bg flex flex-col gap-[0.625rem] w-full
+        <Card
+          className={`bg-primary-bg gap-[0.625rem] w-full
           ${style.bg + style.border}`}
         >
           <div>
@@ -83,7 +83,7 @@ function TodoItem(props: {
               <span className="text-sm font-normal">New Task</span>
             </Button>
           </div>
-        </div>
+        </Card>
       </div>
       <TaskAddModal
         show={newModal}
@@ -165,7 +165,9 @@ function ItemSection({
           )
         })
       ) : (
-        <PlaceHolder>No Task</PlaceHolder>
+        <Card className="px-4 py-2 text-md text-[#757575]">
+          No Task
+        </Card>
       )}
       {/* {preview && (
         <div className=" bg-primary-main/50 [&>*]:opacity-50 rounded blur-sm">

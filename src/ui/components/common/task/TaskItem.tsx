@@ -11,6 +11,7 @@ import ConfirmationModal from "../ConfirmationModal"
 import ProgressBar from "../ProgressBar"
 import TaskOptions, { ICardOption } from "./TaskOptions"
 import TaskEditModal from "./TaskEditModal"
+import { Card } from "../Card"
 
 export interface ITaskItem {
   task: ITask
@@ -165,10 +166,9 @@ const TaskItemContent = React.forwardRef<
     ev.dataTransfer.setData("text/plain", JSON.stringify(task))
   }
   return (
-    <div
+    <Card
       ref={ref}
-      className={`border rounded p-4 gap-3 bg-[#FAFAFA] border-[#e0e0e0] flex flex-col transition-all duration-200 
-      hover:border-black hover:-translate-y-2 hover:z-10`}
+      className={` gap-3  transition-all duration-200 hover:border-black hover:-translate-y-2 hover:z-10 cursor-grab`}
       style={{ transitionDelay: `${animDelay}ms` }}
       onDragStart={handleDragStart}
       draggable
@@ -181,7 +181,7 @@ const TaskItemContent = React.forwardRef<
         <ProgressBar value={task.progress_percentage} done={!!task.done} />
         <TaskOptions trigger={optionButton} options={options} />
       </div>
-    </div>
+    </Card>
   )
 })
 
