@@ -54,13 +54,14 @@ function Button({
         setIsLoading(true)
       }}
       disabled={!!isLoading || loading}
+      data-cy="btn"
     >
       {(!!isLoading || loading) && (
         <span
-          className="btn-loading-el absolute m-auto inset-0 text-black  flex flex-1 w-full z-[10] bg-[#e0e0e0]/10 
+          className="absolute m-auto inset-0 text-black  flex flex-1 w-full z-[10] bg-[#e0e0e0]/10 
           rounded-[inherit] backdrop-blur-sm"
         >
-          <Icon icon="eos-icons:loading" className="m-auto  text-md" />
+          <Icon icon="eos-icons:loading" className="m-auto  text-md" data-cy="btn-loading-spinner"/>
         </span>
       )}
       {children}
