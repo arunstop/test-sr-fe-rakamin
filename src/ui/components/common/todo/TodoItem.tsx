@@ -66,7 +66,7 @@ function TodoItem(props: {
           ${style.bg + style.border}`}
         >
           <div>
-            <Label text={id + ""} type={type} />
+            <Label text={title} type={type} />
           </div>
           <div className="font-bold text-sm">{description}</div>
           {/* TODO: rendering a bit too much, please */}
