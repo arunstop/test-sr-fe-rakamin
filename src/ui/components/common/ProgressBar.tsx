@@ -42,7 +42,7 @@ function ProgressBar({
         />
       )}
       {/* if null*/}
-      {(!!value || isDone) && (
+      {(!!value && !isDone) && (
         <span className="text-[#757575]" data-cy="progress-bar-value">
           {value + "%"}
         </span>
