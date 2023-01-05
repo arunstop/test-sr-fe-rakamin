@@ -23,4 +23,13 @@ describe("<Button />", () => {
     cy.get(`[data-cy="btn"]`).as("btn")
     cy.get(`[data-cy="btn-loading-spinner"]`)
   })
+
+  it("Click to show temporary loading state", () => {
+    // see: https://on.cypress.io/mounting-react
+    cy.mount(<Button loadingFor={300}>Button</Button>)
+    cy.get(`[data-cy="btn"]`).as("btn").click()
+    cy.get(`[data-cy="btn-loading-spinner"]`).should("exist")
+    cy.wait(300+100)
+    cy.get(`[data-cy="btn-loading-spinner"]`).should('not.exist')
+  })
 })
