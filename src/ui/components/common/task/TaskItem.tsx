@@ -120,11 +120,11 @@ function TaskItem(props: ITaskItem) {
       <Transition
         show
         as={TaskItemContent}
-        enter="transition-all duration-300 ease-out"
+        enter="transition-all pointer-events-none duration-300 ease-out"
         enterFrom="-translate-y-0 opacity-50 scale-x-50 blur-md"
         enterTo="-translate-y-[30%] opacity-100 scale-x-100 blur-none"
         entered="-translate-y-[0%]"
-        leave="transition-all duration-300 ease-in"
+        leave="transition-all pointer-events-none duration-300 ease-in"
         leaveFrom="-translate-y-0 opacity-100 scale-x-100 blur-none"
         leaveTo="-translate-y-[30%] opacity-50 scale-x-50 blur-md"
         appear
