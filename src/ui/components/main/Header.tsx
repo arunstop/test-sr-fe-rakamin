@@ -13,7 +13,7 @@ function Header({ title }: { title: string }) {
         data-cy="header"
       >
         <h1 className="font-bold text-xl">{title || "App Name"}</h1>
-        <Button className="text-sm" onClick={() => setAddModal(true)}>
+        <Button className="text-sm" onClick={() => setAddModal(true)} data-cy="button-add-todo-modal">
           <Icon icon="uil:plus" />
           Add New Group
         </Button>

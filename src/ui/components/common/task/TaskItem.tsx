@@ -93,11 +93,13 @@ function TaskItem(props: ITaskItem) {
     {
       icon: <Icon icon="uil:edit-alt" />,
       title: "Edit",
+      class:"button-task-edit",
       action: () => setEditModal(true),
     },
     {
       icon: <Icon icon="uil:trash-alt" />,
       title: "Delete",
+      class:"button-task-delete",
       activeClass: "!text-danger",
       action: () => setDeleteModal(true),
     },
@@ -175,6 +177,7 @@ const TaskItemContent = React.forwardRef<
       draggable
       id={task.name}
       data-task={JSON.stringify(task)}
+      data-cy={`task-item-${task.id}`}
     >
       <span className="font-bold">{task.name}</span>
       <div className="h-[1px] border-b border-dashed w-full border-neutral-[#e0e0e0]"></div>
