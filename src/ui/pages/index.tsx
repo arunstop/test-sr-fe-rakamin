@@ -5,7 +5,7 @@ import { TType } from "../../app/types/commons"
 import { useTodo } from "../../app/stores/todo/TodoHook"
 import { ITodo } from "../../core/data/models/todo"
 
-function index() {
+function PageIndex() {
   const { state } = useTodo()
 
   function getDirection(todo: ITodo): ICardDirection {
@@ -32,9 +32,9 @@ function index() {
   return (
     <LayoutMain>
       <div className="p-6">
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-cy="wrapper-todos">
           <>
-            {state.data.map((v, idx) => {
+            {state?.data.map((v, idx) => {
               return (
                 <CardItem
                   key={idx}
@@ -51,4 +51,4 @@ function index() {
   )
 }
 
-export default index
+export default PageIndex

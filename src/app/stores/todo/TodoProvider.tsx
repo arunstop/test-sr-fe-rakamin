@@ -7,8 +7,9 @@ import {
 import { todoReducer } from "./todo-reducer"
 import { serviceTodoAdd, serviceTodoGet } from "../../services/service-todo"
 import { useTaskStore } from "../task/TaskStore"
+import { ITodo } from "../../../core/data/models/todo"
 
-function TodoProvider({ children }: { children: ReactNode }) {
+function TodoProvider({ children,init }: { children: ReactNode,init?:ITodo[] }) {
   const [state, dispatch] = useReducer(todoReducer, { data: [] })
   const getTask = useTaskStore().getTask
   const action: TTodoContextAction = {
@@ -31,6 +32,7 @@ function TodoProvider({ children }: { children: ReactNode }) {
     action: action,
   }
   useEffect(() => {
+    if (init) return
     action.initTodo()
     return () => {}
   }, [])
