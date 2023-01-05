@@ -24,7 +24,12 @@ export interface IModalProps {
 function Modal({ show, title, titleIcon, children, onClose }: IModalProps) {
   return (
     <Transition appear show={show} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onClose} data-cy="modal">
+      <Dialog
+        as="div"
+        className="relative z-10"
+        onClose={onClose}
+        data-cy="modal"
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -34,7 +39,10 @@ function Modal({ show, title, titleIcon, children, onClose }: IModalProps) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-25" />
+          <div
+            className="fixed inset-0 bg-black bg-opacity-25"
+            data-cy="modal-backdrop"
+          />
         </Transition.Child>
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
@@ -51,13 +59,16 @@ function Modal({ show, title, titleIcon, children, onClose }: IModalProps) {
                 {!!title && (
                   <>
                     <div className="flex gap-2 p-6 items-center">
-                      {!!titleIcon && <span className="text-lg flex">{titleIcon}</span>}
+                      {!!titleIcon && (
+                        <span className="text-lg flex">{titleIcon}</span>
+                      )}
                       <Dialog.Title className="text-xl font-bold">
                         {title}
                       </Dialog.Title>
                       <Button
                         className="bg-transparent ml-auto text-black px-0"
                         onClick={onClose}
+                        data-cy="modal-button-close"
                       >
                         <Icon
                           icon="ion:close-round"
