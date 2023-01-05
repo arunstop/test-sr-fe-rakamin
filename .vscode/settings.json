@@ -1,0 +1,25 @@
+{
+  "prettier.semi": false,
+  // "tailwindCSS.rootFontSize": 14 // <- your root font size here
+  // "workbench.colorTheme": "Vitesse Dark",
+  // "workbench.preferredDarkColorTheme": "Vitesse Dark",
+  // "workbench.preferredLightColorTheme": "Bearded Theme Light",
+  "terminal.integrated.fontFamily": "'Lilex NFM'",
+  // Fisa Code
+  // ========================
+  // "editor.fontFamily": "'Fisa Code', Consolas, 'Courier New', monospace"
+  // "editor.fontSize": 15,
+  // ========================
+  // "editor.fontFamily": "'Victor Mono', Consolas, 'Courier New', monospace",
+  // Cascadia Code SemiLight
+  // ========================
+  "editor.fontFamily": "'Cascadia Code SemiLight', Consolas, 'Courier New', monospace",
+  "editor.fontSize": 15,
+  "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'zero', 'onum'"
+  // ========================
+  // Fantasque Sans Mono
+  // ========================
+  // "editor.fontFamily": "'Fantasque Sans Mono', Consolas, 'Courier New', monospace",
+  // "editor.fontSize": 17
+  // ========================
+}
