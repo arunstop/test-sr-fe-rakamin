@@ -15,10 +15,10 @@ export interface IConfirmationModalActions {
     label?: string
     action: () => void
   }
-  type: TType
+  type?: TType
 }
 function ConfirmationModal({
-  type,
+  type = "primary",
   desc,
   ok,
   cancel,
@@ -45,9 +45,9 @@ function ConfirmationModal({
     return
   }
   return (
-    <Modal {...props} titleIcon={getIcon(type)}>
+    <Modal {...props} titleIcon={getIcon(type)} data-cy="modal-confirmation">
       <div className="px-6">{desc}</div>
-      <div className="flex justify-end gap-[0.625rem] p-6 w-full ${style.bgMain}">
+      <div className="flex justify-end gap-[0.625rem] p-6 w-full ${style.bgMain}" data-cy="modal-confirmation-actions">
         <Button className={`${style.bgMain}`} onClick={() => ok?.action()} loadingFor={2000}>
           {ok?.label || "Okay"}
         </Button>

@@ -21,14 +21,19 @@ export interface IModalProps {
   onClose: () => void
 }
 
-function Modal({ show, title, titleIcon, children, onClose }: IModalProps) {
+const Modal = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & IModalProps
+>(({ show, title, titleIcon, children, onClose, ...props }, ref) => {
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog
+        ref={ref}
         as="div"
         className="relative z-10"
         onClose={onClose}
         data-cy="modal"
+        {...props}
       >
         <Transition.Child
           as={Fragment}
@@ -98,6 +103,6 @@ function Modal({ show, title, titleIcon, children, onClose }: IModalProps) {
       </Dialog>
     </Transition>
   )
-}
+})
 
 export default Modal
