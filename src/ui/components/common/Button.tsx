@@ -1,16 +1,14 @@
 import { Icon } from "@iconify-icon/react"
 import React, { useEffect, useState } from "react"
 
-function Button({
-  children,
-  loadingFor,
-  loading,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  loading?: boolean
-  loadingFor?: number
-  children: React.ReactNode
-}) {
+const Button = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    loading?: boolean
+    loadingFor?: number
+    children: React.ReactNode
+  }
+>(({ children, loadingFor, loading, ...props }, ref) => {
   const [isLoading, setIsLoading] = useState(loading)
   // listen for isLoading change to decide loading state
   useEffect(() => {
@@ -42,11 +40,17 @@ function Button({
 
   return (
     <button
+      ref={ref}
+      data-cy="btn"
       {...props}
       className={`flex gap-1 rounded-lg items-center justify-center px-4 text-white bg-primary-main transition-all duration-200
       hover:-translate-y-1 active:scale-95 active:translate-y-1 ease-in font-bold py-1 relative isolate
       ${props.className}
-      ${isLoading || loading ? "pointer-events-none scale-90 bg-opacity-30 select-none" : ""}
+      ${
+        isLoading || loading
+          ? "pointer-events-none scale-90 bg-opacity-30 select-none"
+          : ""
+      }
       `}
       onClick={(ev) => {
         props.onClick?.(ev)
@@ -54,19 +58,22 @@ function Button({
         setIsLoading(true)
       }}
       disabled={!!isLoading || loading}
-      data-cy="btn"
     >
       {(!!isLoading || loading) && (
         <span
           className="absolute m-auto inset-0 text-black  flex flex-1 w-full z-[10] bg-[#e0e0e0]/10 
           rounded-[inherit] backdrop-blur-sm"
         >
-          <Icon icon="eos-icons:loading" className="m-auto  text-md" data-cy="btn-loading-spinner"/>
+          <Icon
+            icon="eos-icons:loading"
+            className="m-auto  text-md"
+            data-cy="btn-loading-spinner"
+          />
         </span>
       )}
       {children}
     </button>
   )
-}
+})
 
 export default Button
