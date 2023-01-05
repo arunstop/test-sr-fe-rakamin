@@ -1,17 +1,17 @@
-import React, { useState } from "react"
-import Button from "../common/Button"
 import { Icon } from "@iconify-icon/react"
-import { serviceTodoAdd } from "../../../app/services/service-todo"
-import { useTodo } from "../../../app/stores/todo/TodoHook"
-import Modal from "../common/Modal"
+import { useState } from "react"
+import Button from "../common/Button"
 import TodoAddModal from "../common/todo/TodoAddModal"
 
 function Header({ title }: { title: string }) {
   const [addModal, setAddModal] = useState(false)
-  
+
   return (
     <>
-      <nav className="sticky top-0 flex gap-2 sm:gap-4 border-b-2 border-[#E0E0E0] px-5 py-[1.125rem] bg-white z-10">
+      <nav
+        className="sticky top-0 flex gap-2 sm:gap-4 border-b-2 border-[#E0E0E0] px-5 py-[1.125rem] bg-white z-10"
+        data-cy="header"
+      >
         <h1 className="font-bold text-xl">{title || "App Name"}</h1>
         <Button className="text-sm" onClick={() => setAddModal(true)}>
           <Icon icon="uil:plus" />
