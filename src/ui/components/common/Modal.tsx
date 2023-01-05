@@ -24,7 +24,7 @@ export interface IModalProps {
 function Modal({ show, title, titleIcon, children, onClose }: IModalProps) {
   return (
     <Transition appear show={show} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onClose}>
+      <Dialog as="div" className="relative z-10" onClose={onClose} data-cy="modal">
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
