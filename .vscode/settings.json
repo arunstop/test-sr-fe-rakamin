@@ -1,9 +1,9 @@
 {
   "prettier.semi": false,
   // "tailwindCSS.rootFontSize": 14 // <- your root font size here
-  // "workbench.colorTheme": "Vitesse Dark",
-  // "workbench.preferredDarkColorTheme": "Vitesse Dark",
-  // "workbench.preferredLightColorTheme": "Bearded Theme Light",
+  "workbench.colorTheme": "Community Material Theme Darker High Contrast",
+  "workbench.preferredDarkColorTheme": "Community Material Theme Darker High Contrast",
+  "workbench.preferredLightColorTheme": "Community Material Theme Lighter High Contrast",
   "terminal.integrated.fontFamily": "'Lilex NFM'",
   // Fisa Code
   // ========================
