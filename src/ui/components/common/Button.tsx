@@ -43,9 +43,10 @@ const Button = React.forwardRef<
       ref={ref}
       data-cy="btn"
       {...props}
-      className={`flex gap-1 rounded-lg items-center justify-center px-4 text-white bg-primary-main transition-all duration-200
-      hover:-translate-y-1 active:scale-95 active:translate-y-1 ease-in font-bold py-1 relative isolate
-      ${props.className}
+      className={`flex gap-1 rounded-lg items-center justify-center px-4 text-white bg-primary-main transition-all 
+      duration-200 hover:-translate-y-1 active:scale-95 active:translate-y-1 ease-in font-bold py-1 relative isolate 
+      focus:ring-2 ring-black
+      ${props.className || ''}
       ${
         isLoading || loading
           ? "pointer-events-none scale-90 bg-opacity-30 select-none"
