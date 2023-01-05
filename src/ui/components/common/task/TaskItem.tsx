@@ -98,6 +98,7 @@ function TaskItem(props: ITaskItem) {
     {
       icon: <Icon icon="uil:trash-alt" />,
       title: "Delete",
+      activeClass: "!text-danger",
       action: () => setDeleteModal(true),
     },
   ]

@@ -6,6 +6,7 @@ export interface ICardOption {
   icon: ReactNode
   title: string
   hidden?: boolean
+  activeClass?: string
   action: () => void
 }
 
@@ -24,7 +25,7 @@ function TaskOptions({
             {({ active }) => (
               <div
                 className={`flex gap-2 sm:gap-4 items-center px-4  py-1.5 font-bold text-[#333333]
-                ${!!active && "!text-primary"} cursor-pointer`}
+                ${!!active ? `!text-primary ${e.activeClass}` : ""} cursor-pointer`}
                 onClick={e.action}
               >
                 <span className="flex text-[24px]">{e.icon}</span>
