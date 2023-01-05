@@ -69,6 +69,7 @@ function Modal({ show, title, titleIcon, children, onClose }: IModalProps) {
                         className="bg-transparent ml-auto text-black px-0"
                         onClick={onClose}
                         data-cy="modal-button-close"
+                        tabIndex={-1}
                       >
                         <Icon
                           icon="ion:close-round"
