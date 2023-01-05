@@ -9,7 +9,8 @@ export const Card = React.forwardRef<
       ref={ref}
       {...props}
       className={`border rounded p-4 bg-[#FAFAFA] border-[#e0e0e0] flex flex-col transition-all duration-200 
-      ${props.className}`}
+      ${props.className || ""}`}
+      data-cy="card"
     />
   )
 })
