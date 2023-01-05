@@ -171,7 +171,7 @@ const TaskItemContent = React.forwardRef<
   return (
     <Card
       ref={ref}
-      className={` gap-3  transition-all duration-200 hover:border-black hover:-translate-y-2 hover:z-10 cursor-grab`}
+      className={` gap-[10px]  transition-all duration-200 hover:border-black hover:-translate-y-2 hover:z-10 cursor-grab`}
       style={{ transitionDelay: `${animDelay}ms` }}
       onDragStart={handleDragStart}
       draggable
