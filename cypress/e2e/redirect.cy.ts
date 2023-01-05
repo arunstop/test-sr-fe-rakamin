@@ -1,3 +1,4 @@
+export {}
 describe("Auto redirect to v1", () => {
   //
   it("OPEN app", () => {

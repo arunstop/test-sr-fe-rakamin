@@ -1,3 +1,4 @@
+export {}
 describe("Add todo", () => {
   before(() => {
     cy.visit("http://localhost:3030")
