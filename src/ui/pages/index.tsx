@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import LayoutMain from "../layouts/LayoutMain"
-import CardItem, { ICardDirection } from "../components/common/CardItem"
+import TodoItem, { ICardDirection } from "../components/common/todo/TodoItem"
 import { TType } from "../../app/types/commons"
 import { useTodo } from "../../app/stores/todo/TodoHook"
 import { ITodo } from "../../core/data/models/todo"
@@ -36,7 +36,7 @@ function PageIndex() {
           <>
             {state?.data.map((v, idx) => {
               return (
-                <CardItem
+                <TodoItem
                   key={idx}
                   todo={v}
                   type={getType(idx+1)}

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react"
-import DropDown from "./DropDown"
+import DropDown from "../DropDown"
 import { Menu } from "@headlessui/react"
 
 export interface ICardOption {

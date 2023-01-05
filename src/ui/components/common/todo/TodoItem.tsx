@@ -1,23 +1,23 @@
 import { Icon } from "@iconify-icon/react"
 import React, { useCallback, useEffect, useState } from "react"
 import shallow from "zustand/shallow"
-import { useTaskStore } from "../../../app/stores/task/TaskStore"
-import { TType } from "../../../app/types/commons"
-import { ITask } from "../../../core/data/models/task"
-import { ITodo } from "../../../core/data/models/todo"
-import { getTypeStyle } from "../../helpers/style"
-import Button from "./Button"
-import Label from "./Label"
-import TaskItem from "./TaskItem"
-import CardAddModal from "./card/CardAddModal"
-import PlaceHolder from "./PlaceHolder"
+import { useTaskStore } from "../../../../app/stores/task/TaskStore"
+import { TType } from "../../../../app/types/commons"
+import { ITask } from "../../../../core/data/models/task"
+import { ITodo } from "../../../../core/data/models/todo"
+import { getTypeStyle } from "../../../helpers/style"
+import Button from "../Button"
+import Label from "../Label"
+import TaskItem from "../task/TaskItem"
+import TaskAddModal from "../task/TaskAddModal"
+import PlaceHolder from "../PlaceHolder"
 
 export interface ICardDirection {
   left?: number
   right?: number
 }
 
-function CardItem(props: {
+function TodoItem(props: {
   todo: ITodo
   type: TType
   direction: ICardDirection
@@ -85,7 +85,7 @@ function CardItem(props: {
           </div>
         </div>
       </div>
-      <CardAddModal
+      <TaskAddModal
         show={newModal}
         onClose={() => setNewModal(false)}
         title={"Create Task"}
@@ -181,4 +181,4 @@ function ItemSection({
   )
 }
 
-export default CardItem
+export default TodoItem

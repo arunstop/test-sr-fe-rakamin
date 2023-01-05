@@ -1,20 +1,16 @@
-import React, { Fragment, useState } from "react"
-import { TType } from "../../../app/types/commons"
-import { getTypeStyle } from "../../helpers/style"
-import { ITask } from "../../../core/data/models/task"
-import ProgressBar from "./ProgressBar"
-import Button from "./Button"
-import { Icon } from "@iconify-icon/react"
-import ConfirmationModal from "./ConfirmationModal"
-import DropDown from "./DropDown"
-import TaskOptions, { ICardOption } from "./TaskOptions"
-import { useTaskStore } from "../../../app/stores/task/TaskStore"
-import CardAddModal from "./card/CardAddModal"
-import CardEditModal from "./card/CardEditModal"
-import { TServiceTaskMoveDirection } from "../../../app/types/stores/types-task"
-import { useTodo } from "../../../app/stores/todo/TodoHook"
-import { ICardDirection } from "./CardItem"
 import { Transition } from "@headlessui/react"
+import { Icon } from "@iconify-icon/react"
+import React, { useState } from "react"
+import { useTaskStore } from "../../../../app/stores/task/TaskStore"
+import { useTodo } from "../../../../app/stores/todo/TodoHook"
+import { TServiceTaskMoveDirection } from "../../../../app/types/stores/types-task"
+import { ITask } from "../../../../core/data/models/task"
+import Button from "../Button"
+import { ICardDirection } from "../todo/TodoItem"
+import ConfirmationModal from "../ConfirmationModal"
+import ProgressBar from "../ProgressBar"
+import TaskOptions, { ICardOption } from "./TaskOptions"
+import TaskEditModal from "./TaskEditModal"
 
 export interface ITaskItem {
   task: ITask
@@ -142,7 +138,7 @@ function TaskItem(props: ITaskItem) {
         ok={{ label: "Delete", action: confirmDeleteTask }}
         cancel={{ label: "Cancel", action: closeDeleteModal }}
       />
-      <CardEditModal
+      <TaskEditModal
         show={editModal}
         onClose={() => setEditModal(false)}
         title={"Edit Task"}

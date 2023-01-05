@@ -3,7 +3,7 @@ import Button from "../Button"
 import TextInput from "../TextInput"
 import { ITaskInput } from "../../../../app/types/stores/types-task"
 
-function CardForm({
+function TaskForm({
   data,
   onEdit,
   onSubmit,
@@ -78,4 +78,4 @@ function CardForm({
   )
 }
 
-export default CardForm
+export default TaskForm
