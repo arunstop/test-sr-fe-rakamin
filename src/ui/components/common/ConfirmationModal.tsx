@@ -46,7 +46,7 @@ function ConfirmationModal({
   }
   return (
     <Modal {...props} titleIcon={getIcon(type)} data-cy="modal-confirmation">
-      <div className="px-6">{desc}</div>
+      <div className="px-6" data-cy="modal-confirmation-desc">{desc}</div>
       <div className="flex justify-end gap-[0.625rem] p-6 w-full ${style.bgMain}" data-cy="modal-confirmation-actions">
         <Button className={`${style.bgMain}`} onClick={() => ok?.action()} loadingFor={2000}>
           {ok?.label || "Okay"}
