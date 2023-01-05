@@ -3,7 +3,7 @@ import Button from "../Button"
 import TextInput from "../TextInput"
 import { ITaskInput } from "../../../../app/types/stores/types-task"
 
-function CardForm({
+function TaskForm({
   data,
   onEdit,
   onSubmit,
@@ -37,6 +37,7 @@ function CardForm({
               onEdit({ ...data, name: ev.target.value })
             }}
             placeholder="Type your Task"
+            data-cy="input-task-name"
           />
         </div>
         <div className="grid gap-2">
@@ -59,11 +60,12 @@ function CardForm({
               onEdit({ ...data, progress_percentage: parseInt(ev.target.value) })
             }}
             placeholder="70%"
+            data-cy="input-task-progress"
           />
         </div>
       </div>
       <div className="flex justify-end gap-[0.625rem] py-6 w-full">
-        <Button className="" type="submit" loading={loading}>
+        <Button className="" type="submit" loading={loading} data-cy="button-add-task-confirmation">
           Save Task
         </Button>
         <Button
@@ -78,4 +80,4 @@ function CardForm({
   )
 }
 
-export default CardForm
+export default TaskForm

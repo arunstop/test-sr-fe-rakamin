@@ -1,20 +1,17 @@
-import React, { Fragment, useState } from "react"
-import { TType } from "../../../app/types/commons"
-import { getTypeStyle } from "../../helpers/style"
-import { ITask } from "../../../core/data/models/task"
-import ProgressBar from "./ProgressBar"
-import Button from "./Button"
-import { Icon } from "@iconify-icon/react"
-import ConfirmationModal from "./ConfirmationModal"
-import DropDown from "./DropDown"
-import TaskOptions, { ICardOption } from "./TaskOptions"
-import { useTaskStore } from "../../../app/stores/task/TaskStore"
-import CardAddModal from "./card/CardAddModal"
-import CardEditModal from "./card/CardEditModal"
-import { TServiceTaskMoveDirection } from "../../../app/types/stores/types-task"
-import { useTodo } from "../../../app/stores/todo/TodoHook"
-import { ICardDirection } from "./CardItem"
 import { Transition } from "@headlessui/react"
+import { Icon } from "@iconify-icon/react"
+import React, { useState } from "react"
+import { useTaskStore } from "../../../../app/stores/task/TaskStore"
+import { useTodo } from "../../../../app/stores/todo/TodoHook"
+import { TServiceTaskMoveDirection } from "../../../../app/types/stores/types-task"
+import { ITask } from "../../../../core/data/models/task"
+import Button from "../Button"
+import { ICardDirection } from "../todo/TodoItem"
+import ConfirmationModal from "../ConfirmationModal"
+import ProgressBar from "../ProgressBar"
+import TaskOptions, { ICardOption } from "./TaskOptions"
+import TaskEditModal from "./TaskEditModal"
+import { Card } from "../Card"
 
 export interface ITaskItem {
   task: ITask
@@ -96,11 +93,14 @@ function TaskItem(props: ITaskItem) {
     {
       icon: <Icon icon="uil:edit-alt" />,
       title: "Edit",
+      class:"button-task-edit",
       action: () => setEditModal(true),
     },
     {
       icon: <Icon icon="uil:trash-alt" />,
       title: "Delete",
+      class:"button-task-delete",
+      activeClass: "!text-danger",
       action: () => setDeleteModal(true),
     },
   ]
@@ -142,7 +142,7 @@ function TaskItem(props: ITaskItem) {
         ok={{ label: "Delete", action: confirmDeleteTask }}
         cancel={{ label: "Cancel", action: closeDeleteModal }}
       />
-      <CardEditModal
+      <TaskEditModal
         show={editModal}
         onClose={() => setEditModal(false)}
         title={"Edit Task"}
@@ -169,15 +169,15 @@ const TaskItemContent = React.forwardRef<
     ev.dataTransfer.setData("text/plain", JSON.stringify(task))
   }
   return (
-    <div
+    <Card
       ref={ref}
-      className={`border rounded p-4 gap-3 bg-[#FAFAFA] border-[#e0e0e0] flex flex-col transition-all duration-200 
-      hover:border-black hover:-translate-y-2 hover:z-10`}
+      className={` gap-3  transition-all duration-200 hover:border-black hover:-translate-y-2 hover:z-10 cursor-grab`}
       style={{ transitionDelay: `${animDelay}ms` }}
       onDragStart={handleDragStart}
       draggable
       id={task.name}
       data-task={JSON.stringify(task)}
+      data-cy={`task-item-${task.id}`}
     >
       <span className="font-bold">{task.name}</span>
       <div className="h-[1px] border-b border-dashed w-full border-neutral-[#e0e0e0]"></div>
@@ -185,7 +185,7 @@ const TaskItemContent = React.forwardRef<
         <ProgressBar value={task.progress_percentage} done={!!task.done} />
         <TaskOptions trigger={optionButton} options={options} />
       </div>
-    </div>
+    </Card>
   )
 })
 

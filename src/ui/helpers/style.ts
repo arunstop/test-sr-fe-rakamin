@@ -35,42 +35,42 @@ export function getTypeStyle(type: TType): ITypeStyleData {
   switch (type) {
     case "primary": {
       return getTypeStyleData({
-        bg: "bg-primary ",
-        bgMain: "bg-primary-main ",
-        border: "border-primary/100 ",
-        text: "text-primary",
+        bg: "!bg-primary ",
+        bgMain: "!bg-primary-main ",
+        border: "!border-primary/100 ",
+        text: "!text-primary",
       })
     }
     case "secondary": {
       return getTypeStyleData({
-        bg: "bg-secondary ",
-        bgMain: "bg-secondary-main ",
-        border: "border-secondary ",
-        text: "text-secondary",
+        bg: "!bg-secondary ",
+        bgMain: "!bg-secondary-main ",
+        border: "!border-secondary ",
+        text: "!text-secondary",
       })
     }
     case "danger": {
       return getTypeStyleData({
-        bg: "bg-danger ",
-        bgMain: "bg-danger-main ",
-        border: "border-danger ",
-        text: "text-danger",
+        bg: "!bg-danger ",
+        bgMain: "!bg-danger-main ",
+        border: "!border-danger ",
+        text: "!text-danger",
       })
     }
     case "success": {
       return getTypeStyleData({
-        bg: "bg-success ",
-        bgMain: "bg-success-main ",
-        border: "border-success ",
-        text: "text-success",
+        bg: "!bg-success ",
+        bgMain: "!bg-success-main ",
+        border: "!border-success ",
+        text: "!text-success",
       })
     }
     default: {
       return getTypeStyleData({
-        bg: "bg-primary ",
-        bgMain: "bg-primary-main ",
-        border: "border-primary ",
-        text: "text-primary",
+        bg: "!bg-primary ",
+        bgMain: "!bg-primary-main ",
+        border: "!border-primary ",
+        text: "!text-primary",
       })
     }
   }

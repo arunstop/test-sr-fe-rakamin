@@ -1,36 +1,25 @@
 import { useCallback, useState } from "react"
 import { useTaskStore } from "../../../../app/stores/task/TaskStore"
-import {
-  IServiceTaskData,
-  ITaskInput,
-} from "../../../../app/types/stores/types-task"
+import { ITaskInput } from "../../../../app/types/stores/types-task"
 import Modal, { IModalProps } from "../Modal"
-import CardForm from "./CardForm"
+import TaskForm from "./TaskForm"
 
-function CardEditModal({
-  taskId,
+function TaskAddModal({
   todoId,
-  input,
   ...modalProps
-}: IModalProps & IServiceTaskData) {
+}: IModalProps & { todoId: number }) {
   const [data, setData] = useState<ITaskInput>({
-    name: input.name,
-    progress_percentage: input.progress_percentage,
+    name: "",
+    progress_percentage: 0,
   })
   const [loading, setLoading] = useState(false)
-  const { editTask } = useTaskStore()
+  const { addTask } = useTaskStore()
   function onEdit(data: ITaskInput) {
     setData(data)
   }
   const onSubmit = useCallback(async () => {
-    await editTask({
-      // not changing target todo id cuz only need to edits the name/progress
-      data: {
-        input: data,
-        todoId: todoId,
-        taskId: taskId,
-        targetTodoId: todoId,
-      },
+    await addTask({
+      data: { input: data, todoId: todoId },
       onLoading(message) {
         setLoading(true)
       },
@@ -44,15 +33,12 @@ function CardEditModal({
     })
 
     setLoading(false)
-    setData({
-      name: input.name,
-      progress_percentage: input.progress_percentage,
-    })
+    setData({ name: "", progress_percentage: 0 })
   }, [data])
   return (
     <Modal {...modalProps}>
       <div className="flex flex-col">
-        <CardForm
+        <TaskForm
           data={data}
           onEdit={onEdit}
           onClose={modalProps.onClose}
@@ -64,4 +50,4 @@ function CardEditModal({
   )
 }
 
-export default CardEditModal
+export default TaskAddModal

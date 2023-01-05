@@ -38,6 +38,7 @@ function TodoForm({
               onEdit({ ...data, title: ev.target.value })
             }}
             placeholder="Type your Todo name"
+            data-cy="input-todo-name"
           />
         </div>
         <div className="grid gap-2">
@@ -50,11 +51,12 @@ function TodoForm({
               onEdit({ ...data, description: ev.target.value })
             }}
             placeholder="Type your Description"
+            data-cy="input-todo-description"
           />
         </div>
       </div>
       <div className="flex justify-end gap-[0.625rem] py-6 w-full">
-        <Button className=""  type="submit" loading={loading}>
+        <Button id="button-add-todo" className=""  type="submit" loading={loading}>
           Save Task
         </Button>
         <Button

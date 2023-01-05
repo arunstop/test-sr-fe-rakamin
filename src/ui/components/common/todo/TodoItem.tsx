@@ -1,23 +1,23 @@
 import { Icon } from "@iconify-icon/react"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useState } from "react"
 import shallow from "zustand/shallow"
-import { useTaskStore } from "../../../app/stores/task/TaskStore"
-import { TType } from "../../../app/types/commons"
-import { ITask } from "../../../core/data/models/task"
-import { ITodo } from "../../../core/data/models/todo"
-import { getTypeStyle } from "../../helpers/style"
-import Button from "./Button"
-import Label from "./Label"
-import TaskItem from "./TaskItem"
-import CardAddModal from "./card/CardAddModal"
-import PlaceHolder from "./PlaceHolder"
+import { useTaskStore } from "../../../../app/stores/task/TaskStore"
+import { TType } from "../../../../app/types/commons"
+import { ITask } from "../../../../core/data/models/task"
+import { ITodo } from "../../../../core/data/models/todo"
+import { getTypeStyle } from "../../../helpers/style"
+import Button from "../Button"
+import { Card } from "../Card"
+import Label from "../Label"
+import TaskAddModal from "../task/TaskAddModal"
+import TaskItem from "../task/TaskItem"
 
 export interface ICardDirection {
   left?: number
   right?: number
 }
 
-function CardItem(props: {
+function TodoItem(props: {
   todo: ITodo
   type: TType
   direction: ICardDirection
@@ -29,11 +29,6 @@ function CardItem(props: {
   const style = getTypeStyle(type)
   const { moveTask } = useTaskStore()
   const [newModal, setNewModal] = useState(false)
-  // TODO: rendering a bit too much, please
-  const items = useCallback(
-    () => <ItemSection todoId={id} direction={props.direction} />,
-    [id],
-  )
   async function handleOnDrop(ev: React.DragEvent<HTMLDivElement>) {
     ev.preventDefault()
     const data = ev.dataTransfer.getData("text/plain")
@@ -64,28 +59,31 @@ function CardItem(props: {
         // onDragEnd={handleDragEnd}
         onDrop={handleOnDrop}
         // onDragEnd={handleDragEnd}
+        data-cy={`todo-item-${id}`}
       >
-        <div
-          className={`rounded border p-4 bg-primary-bg flex flex-col gap-[0.625rem] w-full
+        <Card
+          className={`bg-primary-bg gap-[0.625rem] w-full
           ${style.bg + style.border}`}
         >
           <div>
-            <Label text={title} type={type} />
+            <Label text={id + ""} type={type} />
           </div>
           <div className="font-bold text-sm">{description}</div>
-          {items()}
+          {/* TODO: rendering a bit too much, please */}
+          <ItemSection todoId={id} direction={props.direction} />
           <div className="flex h-min">
             <Button
               className="flex gap-[6.67px] items-center px-0 py-0 bg-transparent text-black"
               onClick={() => setNewModal(true)}
+              data-cy="button-add-task-modal"
             >
               <Icon icon="uil:plus-circle" className="text-[16.67px]" />
               <span className="text-sm font-normal">New Task</span>
             </Button>
           </div>
-        </div>
+        </Card>
       </div>
-      <CardAddModal
+      <TaskAddModal
         show={newModal}
         onClose={() => setNewModal(false)}
         title={"Create Task"}
@@ -152,7 +150,7 @@ function ItemSection({
   // }
 
   return (
-    <div className={`flex flex-col gap-[inherit] isolate `}>
+    <div className={`flex flex-col gap-[inherit] isolate `} data-cy="tasks-wrapper">
       {sortedTasks.length ? (
         sortedTasks.map((e, idx) => {
           return (
@@ -165,7 +163,7 @@ function ItemSection({
           )
         })
       ) : (
-        <PlaceHolder>No Task</PlaceHolder>
+        <Card className="px-4 py-2 text-md text-[#757575]">No Task</Card>
       )}
       {/* {preview && (
         <div className=" bg-primary-main/50 [&>*]:opacity-50 rounded blur-sm">
@@ -181,4 +179,4 @@ function ItemSection({
   )
 }
 
-export default CardItem
+export default TodoItem
