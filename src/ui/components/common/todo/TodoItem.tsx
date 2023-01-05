@@ -62,7 +62,7 @@ function TodoItem(props: {
         data-cy={`todo-item-${id}`}
       >
         <Card
-          className={`bg-primary-bg gap-[0.625rem] w-full
+          className={`bg-primary-bg gap-[0.5rem] w-full
           ${style.bg + style.border}`}
         >
           <div>
