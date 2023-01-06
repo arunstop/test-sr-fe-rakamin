@@ -64,8 +64,8 @@ describe("<Modal />", () => {
     cy.on("window:alert", () => {
       cy.get(`@modal`).invoke("remove")
     })
-    cy.get(`[data-cy="modal-backdrop"]`).as("backdrop")
-    cy.get(`@backdrop`).invoke("attr", "style", "height:1px").click()
+    cy.wait(500)
+    cy.get(`body`).click()
 
     cy.get(`@modal`).should("not.exist")
   })
@@ -87,6 +87,7 @@ describe("<Modal />", () => {
     cy.on("window:alert", () => {
       cy.get(`@modal`).invoke("remove")
     })
+    cy.wait(500)
     cy.get(`[data-cy="modal-button-close"]`).click()
 
     cy.get(`@modal`).should("not.exist")
