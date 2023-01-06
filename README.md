@@ -1,3 +1,8 @@
+# To install
+
+> npm install
+> npm run dev
+
 # Use Case Explanation
 
 ## Given a kanban board, a user can :
@@ -12,12 +17,13 @@
 
 ## Use Case
 
+![use case](https://raw.githubusercontent.com/arunstop/test-sr-fe-rakamin/style/kanban-redesign/docs/img/use%20case.drawio.png)
 
 Explanation : as per requirement, user is able to create todo also create, edit, move and delete task and systematically if user is moving or deleting a task, then the initial and target todo are going to be updated as well, so will the task itself. As the image shows with the dashing line with the `<<include>>` label
 
 ## Technical Design
 
-
+![clean architecture](https://raw.githubusercontent.com/arunstop/test-sr-fe-rakamin/style/kanban-redesign/docs/img/Untitled%20Diagram.drawio.png)
 
 Using a little tweaked clean architecture allows me to offer a pretty good event-driven app design, These are 3 layers of the clean architecture :
 
@@ -52,13 +58,15 @@ Let's say user create a task, here is what'll happen inside the app :
 
 ## Dependencies
 
-The tech stack i used for this projects are :
+The tech & technique stack i used for this projects are :
 
 - React + Vite + Typescript
 - React Context & Zustan (Event driven State managers)
 - Tailwindcss + Headlessui (styling)
 - Cypress (testing)
 - Iconify (Icon packs)
+- Vercel (Deployment)
+- Trunk Development (CI/CD)
 
 ## Clean Architecture
 
