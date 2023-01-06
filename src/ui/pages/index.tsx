@@ -31,8 +31,7 @@ function PageIndex() {
   }, [])
   return (
     <LayoutMain>
-      <div className="p-6">
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-cy="wrapper-todos">
+        <main className="p-6 flex [&>*]:flex-none flex-1 [&>*]:w-[326px]  gap-4 max-w-screen overflow-auto" data-cy="wrapper-todos">
           <>
             {state?.data.map((v, idx) => {
               return (
@@ -45,8 +44,7 @@ function PageIndex() {
               )
             })}
           </>
-        </div>
-      </div>
+        </main>
     </LayoutMain>
   )
 }
