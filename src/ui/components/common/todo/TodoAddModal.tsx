@@ -3,6 +3,7 @@ import { useTodo } from "../../../../app/stores/todo/TodoHook"
 import { ITodoInput } from "../../../../app/types/stores/types-todo"
 import Modal, { IModalProps } from "../Modal"
 import TodoForm from "./TodoForm"
+import { globalBlur } from "../../../helpers/functionality"
 
 function TodoAddModal({ ...modalProps }: IModalProps) {
   const [data, setData] = useState<ITodoInput>({ title: "", description: "" })
@@ -30,17 +31,14 @@ function TodoAddModal({ ...modalProps }: IModalProps) {
   }, [])
 
   function onEdit(data: ITodoInput) {
+    console.log("edit")
     setData(data)
   }
-  function onSubmit() {
-    addTodo(data)
-    // setLoading(true)
-    // new Promise(() =>
-    //   setTimeout(() => {
-    //     setLoading(false)
-    //   }, 3000),
-    // )
-  }
+  const onSubmit = useCallback((input: ITodoInput) => {
+    addTodo(input)
+    // update the data
+    onEdit(input)
+  }, [])
   return (
     <Modal {...modalProps}>
       <div className="flex flex-col">
