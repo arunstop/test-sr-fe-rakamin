@@ -22,11 +22,11 @@ function TaskEditModal({
   function onEdit(data: ITaskInput) {
     setData(data)
   }
-  const onSubmit = useCallback(async () => {
+  const onSubmit = useCallback(async (input:ITaskInput) => {
     await editTask({
       // not changing target todo id cuz only need to edits the name/progress
       data: {
-        input: data,
+        input: input,
         todoId: todoId,
         taskId: taskId,
         targetTodoId: todoId,
@@ -48,7 +48,7 @@ function TaskEditModal({
       name: input.name,
       progress_percentage: input.progress_percentage,
     })
-  }, [data])
+  }, [])
   return (
     <Modal {...modalProps}>
       <div className="flex flex-col">
