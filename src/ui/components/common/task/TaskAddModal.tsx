@@ -17,9 +17,9 @@ function TaskAddModal({
   function onEdit(data: ITaskInput) {
     setData(data)
   }
-  const onSubmit = useCallback(async () => {
+  const onSubmit = useCallback(async (input: ITaskInput) => {
     await addTask({
-      data: { input: data, todoId: todoId },
+      data: { input: input, todoId: todoId },
       onLoading(message) {
         setLoading(true)
       },
@@ -34,7 +34,7 @@ function TaskAddModal({
 
     setLoading(false)
     setData({ name: "", progress_percentage: 0 })
-  }, [data])
+  }, [])
   return (
     <Modal {...modalProps}>
       <div className="flex flex-col">

@@ -11,19 +11,19 @@ function TaskForm({
   loading,
 }: {
   data: ITaskInput
-  onSubmit: () => void
+  onSubmit: (data: ITaskInput) => void
   onEdit: (data: ITaskInput) => void
   onClose: () => void
   loading: boolean
 }) {
   const [name, setName] = useState(data.name)
-  const [progress, setProgress] = useState(data.progress_percentage||0)
+  const [progress, setProgress] = useState(data.progress_percentage || 0)
   return (
     <form
       className="flex flex-col gap-2 sm:gap-4 px-6"
       onSubmit={(ev) => {
         ev.preventDefault()
-        onSubmit()
+        onSubmit({ name: name, progress_percentage: progress })
       }}
     >
       <div className="grid gap-4">
@@ -57,7 +57,10 @@ function TaskForm({
             min={0}
             max={100}
             onBlur={(ev) => {
-              onEdit({ ...data, progress_percentage: parseInt(ev.target.value) })
+              onEdit({
+                ...data,
+                progress_percentage: parseInt(ev.target.value),
+              })
             }}
             placeholder="70%"
             data-cy="input-task-progress"
@@ -65,7 +68,12 @@ function TaskForm({
         </div>
       </div>
       <div className="flex justify-end gap-[0.625rem] py-6 w-full">
-        <Button className="" type="submit" loading={loading} data-cy="button-add-task-confirmation">
+        <Button
+          className=""
+          type="submit"
+          loading={loading}
+          data-cy="button-add-task-confirmation"
+        >
           Save Task
         </Button>
         <Button

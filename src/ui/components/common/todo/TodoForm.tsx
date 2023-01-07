@@ -11,20 +11,20 @@ function TodoForm({
   loading,
 }: {
   data: ITodoInput
-  onSubmit: () => void
+  onSubmit: (data: ITodoInput) => void
   onEdit: (data: ITodoInput) => void
   onClose: () => void
   loading?: boolean
 }) {
-  const [name, setName] = useState("")
-  const [description, setDescription] = useState("")
+  const [title, setTitle] = useState(data.title)
+  const [description, setDescription] = useState(data.description)
 
   return (
     <form
       className="flex flex-col gap-2 sm:gap-4 px-6"
       onSubmit={(ev) => {
         ev.preventDefault()
-        onSubmit()
+        onSubmit({ title: title, description: description })
       }}
     >
       <div className="grid gap-4">
@@ -32,8 +32,8 @@ function TodoForm({
           <span className="text-sm font-bold">Title</span>
           <TextInput
             name="name"
-            value={name}
-            onChange={(ev) => setName(ev.target.value)}
+            value={title}
+            onChange={(ev) => setTitle(ev.target.value)}
             onBlur={(ev) => {
               onEdit({ ...data, title: ev.target.value })
             }}
@@ -56,7 +56,12 @@ function TodoForm({
         </div>
       </div>
       <div className="flex justify-end gap-[0.625rem] py-6 w-full">
-        <Button id="button-add-todo" className=""  type="submit" loading={loading}>
+        <Button
+          id="button-add-todo"
+          className=""
+          type="submit"
+          loading={loading}
+        >
           Save Task
         </Button>
         <Button

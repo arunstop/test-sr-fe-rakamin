@@ -30,17 +30,15 @@ function TodoAddModal({ ...modalProps }: IModalProps) {
   }, [])
 
   function onEdit(data: ITodoInput) {
+    console.log("edit")
     setData(data)
   }
-  function onSubmit() {
-    addTodo(data)
-    // setLoading(true)
-    // new Promise(() =>
-    //   setTimeout(() => {
-    //     setLoading(false)
-    //   }, 3000),
-    // )
-  }
+  const onSubmit = useCallback((input: ITodoInput) => {
+    addTodo(input)
+    // update the data
+    onEdit(input)
+    setData({ title: "", description: "" })
+  }, [])
   return (
     <Modal {...modalProps}>
       <div className="flex flex-col">
