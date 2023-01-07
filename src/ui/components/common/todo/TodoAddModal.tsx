@@ -38,6 +38,7 @@ function TodoAddModal({ ...modalProps }: IModalProps) {
     addTodo(input)
     // update the data
     onEdit(input)
+    setData({ title: "", description: "" })
   }, [])
   return (
     <Modal {...modalProps}>
