@@ -3,7 +3,6 @@ import { useTodo } from "../../../../app/stores/todo/TodoHook"
 import { ITodoInput } from "../../../../app/types/stores/types-todo"
 import Modal, { IModalProps } from "../Modal"
 import TodoForm from "./TodoForm"
-import { globalBlur } from "../../../helpers/functionality"
 
 function TodoAddModal({ ...modalProps }: IModalProps) {
   const [data, setData] = useState<ITodoInput>({ title: "", description: "" })
