@@ -2,7 +2,6 @@ import { useState } from "react"
 import { ITodoInput } from "../../../../app/types/stores/types-todo"
 import Button from "../Button"
 import TextInput from "../TextInput"
-import { globalBlur } from "../../../helpers/functionality"
 
 function TodoForm({
   data,
