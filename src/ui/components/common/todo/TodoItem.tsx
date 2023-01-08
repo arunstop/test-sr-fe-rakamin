@@ -54,6 +54,7 @@ function TodoItem(props: {
         onDragOver={(ev) => {
           ev.preventDefault()
         }}
+        onMouseDown={(ev) => ev.stopPropagation()}
         // onDragEnter={handleDragEnter}
         // onDragLeave={handleDragLeave}
         // onDragEnd={handleDragEnd}
@@ -150,7 +151,10 @@ function ItemSection({
   // }
 
   return (
-    <div className={`flex flex-col gap-[inherit] isolate `} data-cy="tasks-wrapper">
+    <div
+      className={`flex flex-col gap-[inherit] isolate `}
+      data-cy="tasks-wrapper"
+    >
       {sortedTasks.length ? (
         sortedTasks.map((e, idx) => {
           return (
