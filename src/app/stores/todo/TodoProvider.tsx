@@ -11,7 +11,7 @@ import { ITodo } from "../../../core/data/models/todo"
 
 function TodoProvider({ children,init }: { children: ReactNode,init?:ITodo[] }) {
   const [state, dispatch] = useReducer(todoReducer, { data: [] })
-  const getTask = useTaskStore().getTask
+  // const getTask = useTaskStore().getTask
   const action: TTodoContextAction = {
     addTodo: async (params) => {
       const res = await serviceTodoAdd(params)
@@ -21,9 +21,9 @@ function TodoProvider({ children,init }: { children: ReactNode,init?:ITodo[] }) 
     initTodo: async () => {
       const todos = await serviceTodoGet({ data: { key: "" } })
       if (!todos) return
-      todos.map((e) => {
-        getTask({ data: { todoId: e.id } })
-      })
+      // todos.map((e) => {
+      //   getTask({ data: { todoId: e.id } })
+      // })
       dispatch({ type: "INIT_TODO", payload: todos })
     },
   }
