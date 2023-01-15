@@ -6,7 +6,7 @@ import { useAuthStore } from "../../../app/stores/auth/AuthStore."
 function AuthPanel() {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<IAuthInput>({ email: "", password: "" })
-  const { login } = useAuthStore()
+  const { email,login } = useAuthStore()
   function handleEdit(data: IAuthInput) {
     setData(data)
   }
@@ -20,17 +20,18 @@ function AuthPanel() {
         password: data.password,
       },
       onSuccess(data) {
-          console.log("login result", data)
+        console.log("login result", data)
       },
       onError(data) {
         console.log("login result", data)
-    },
+      },
     })
     setLoading(false)
   }
 
   return (
     <Card className="flex-flex-col items-center">
+    {email}
       <header className="text-lg font-bold">Login</header>
       <AuthForm
         data={data}

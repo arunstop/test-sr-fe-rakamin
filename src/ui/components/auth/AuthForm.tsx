@@ -201,7 +201,7 @@ function useAuthForm({
   const handleChangePassword = useCallback((value: string) => {
     setPassword(value)
     if (!validationMoreThan(value, 5))
-      return setErrors((old) => old.set("password", "Needs at least 8 digits"))
+      return setErrors((old) => old.set("password", "Needs at least 6 digits"))
     if (!validationIsPassword(value))
       return setErrors((old) => old.set("password", "Cannot contain space"))
     return setErrors((old) => {

@@ -18,15 +18,17 @@ export type TRepoAuthRegisterProps = {
 }
 
 //
+export type TServiceAuthLogout = TRepoAuthParams<string>
 export type TServiceAuthLogin = TRepoAuthParams<TRepoAuthLoginProps>
 export type TServiceAuthRegister = TRepoAuthParams<TRepoAuthRegisterProps>
-export type TServiceAuthLogout = TRepoAuthParams<string>
+export type TServiceAuthInit = Pick<TRepoAuthRegisterProps, "email">
 //
 
 // stores
 export interface IStoreAuthAction {
-  login(props: TServiceAuthLogin): void | Promise<void>
+  init(props: TServiceAuthInit): void | Promise<void>
   register(props: TServiceAuthRegister): void | Promise<void>
+  login(props: TServiceAuthLogin): void | Promise<void>
   logout(props: TServiceAuthLogout): void | Promise<void>
 }
 
