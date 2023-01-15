@@ -28,6 +28,8 @@ export const useAuthStore = create<IStoreAuth>()((set, get) => ({
     Cookies.set("email", props.data.email, { path: "/" })
   },
   async logout(props) {
+    Cookies.remove("auth_token")
+    Cookies.remove("email")
     set((old) => {
       return { ...old, email: "" }
     })
