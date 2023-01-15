@@ -68,6 +68,7 @@ export const useTaskStore = create<IStoreTask>((set) => ({
   },
 
   deleteTask: async (props) => {
+    // TODO: add abort controller
     const res = await serviceTaskDelete(props)
     if (!res) return
     const freshTasks = await serviceTaskGet({
