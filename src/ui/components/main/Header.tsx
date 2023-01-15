@@ -8,7 +8,12 @@ import { redirect, useNavigate } from "react-router-dom"
 function Header({ title }: { title: string }) {
   const [addModal, setAddModal] = useState(false)
   const { email, logout } = useAuthStore()
-const navigate = useNavigate()
+  const navigate = useNavigate()
+
+  async function handleLogout() {
+    await logout({ data: "" })
+    navigate('/auth')
+  }
   return (
     <>
       <nav
@@ -28,7 +33,7 @@ const navigate = useNavigate()
           {!email ? (
             <Button
               className="text-sm"
-              onClick={() => navigate('/auth')}
+              onClick={() => navigate("/auth")}
               data-cy="button-logout"
             >
               Login
@@ -38,7 +43,7 @@ const navigate = useNavigate()
               <span className="font-bold text-lg">{email}</span>
               <Button
                 className="text-sm"
-                onClick={() => logout({ data: "" })}
+                onClick={handleLogout}
                 data-cy="button-logout"
               >
                 Logout
