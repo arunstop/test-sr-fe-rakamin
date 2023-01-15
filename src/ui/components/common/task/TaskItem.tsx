@@ -12,6 +12,7 @@ import ProgressBar from "../ProgressBar"
 import TaskOptions, { ICardOption } from "./TaskOptions"
 import TaskEditModal from "./TaskEditModal"
 import { Card } from "../Card"
+import Cookies from "js-cookie"
 
 export interface ITaskItem {
   task: ITask
@@ -46,7 +47,7 @@ function TaskItem(props: ITaskItem) {
 
   async function confirmDeleteTask() {
     await deleteTask({
-      data: { taskId: id, todoId: todo_id },
+      data: { taskId: id, todoId: todo_id,token: Cookies.get("auth_token") || "", },
       onLoading(message) {
         setLoading(true)
       },
@@ -72,6 +73,7 @@ function TaskItem(props: ITaskItem) {
         taskId: id,
         todoId: todo_id,
         targetTodoId: target,
+        token: Cookies.get("auth_token") || "",
       },
       // direction: dir,
     })

@@ -13,7 +13,7 @@ export const useTaskStore = create<IStoreTask>((set) => ({
   getTask: async (props) => {
     const res = await serviceTaskGet(props)
     if (!res || res.length == 0) return
-    
+
     set((old) => {
       return { ...old, tasks: old.tasks.set(props.data.todoId, res) }
     })
@@ -23,10 +23,10 @@ export const useTaskStore = create<IStoreTask>((set) => ({
     const res = await serviceTaskAdd(props)
     if (!res) return
     const freshTasks = await serviceTaskGet({
-      data: { todoId: props.data.todoId },
+      data: { todoId: props.data.todoId,token: props.data.token },
     })
     if (!freshTasks || freshTasks.length == 0) return
-    
+
     set((old) => {
       return { ...old, tasks: old.tasks.set(props.data.todoId, freshTasks) }
     })
@@ -36,7 +36,7 @@ export const useTaskStore = create<IStoreTask>((set) => ({
     const res = await serviceTaskEdit(props)
     if (!res) return
     const freshTasks = await serviceTaskGet({
-      data: { todoId: props.data.todoId },
+      data: { todoId: props.data.todoId,token: props.data.token },
     })
     if (!freshTasks) return
 
@@ -50,13 +50,13 @@ export const useTaskStore = create<IStoreTask>((set) => ({
     if (!res) return
 
     const freshTasks = await serviceTaskGet({
-      data: { todoId: props.data.todoId },
+      data: { todoId: props.data.todoId, token: props.data.token },
     })
     if (!freshTasks) return
 
     // update target todo tasks
     const freshTargetTasks = await serviceTaskGet({
-      data: { todoId: props.data.targetTodoId },
+      data: { todoId: props.data.targetTodoId, token: props.data.token },
     })
     if (!freshTargetTasks) return
 
@@ -71,7 +71,7 @@ export const useTaskStore = create<IStoreTask>((set) => ({
     const res = await serviceTaskDelete(props)
     if (!res) return
     const freshTasks = await serviceTaskGet({
-      data: { todoId: props.data.todoId },
+      data: { todoId: props.data.todoId,token: props.data.token },
     })
     if (!freshTasks) return
     set((old) => {

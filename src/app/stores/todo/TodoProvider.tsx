@@ -8,8 +8,16 @@ import { todoReducer } from "./todo-reducer"
 import { serviceTodoAdd, serviceTodoGet } from "../../services/service-todo"
 import { useTaskStore } from "../task/TaskStore"
 import { ITodo } from "../../../core/data/models/todo"
+import Cookies from "js-cookie"
+import { useAuthStore } from "../auth/AuthStore."
 
-function TodoProvider({ children,init }: { children: ReactNode,init?:ITodo[] }) {
+function TodoProvider({
+  children,
+  init,
+}: {
+  children: ReactNode
+  init?: ITodo[]
+}) {
   const [state, dispatch] = useReducer(todoReducer, { data: [] })
   // const getTask = useTaskStore().getTask
   const action: TTodoContextAction = {
@@ -19,7 +27,9 @@ function TodoProvider({ children,init }: { children: ReactNode,init?:ITodo[] }) 
       dispatch({ type: "ADD_TODO", payload: res })
     },
     initTodo: async () => {
-      const todos = await serviceTodoGet({ data: { key: "" } })
+      const todos = await serviceTodoGet({
+        data: { token: Cookies.get("auth_token") || "" },
+      })
       if (!todos) return
       // todos.map((e) => {
       //   getTask({ data: { todoId: e.id } })
@@ -31,11 +41,12 @@ function TodoProvider({ children,init }: { children: ReactNode,init?:ITodo[] }) 
     state: state,
     action: action,
   }
+  const { email } = useAuthStore()
   useEffect(() => {
-    if (init) return
+    if (init || !email) return
     action.initTodo()
     return () => {}
-  }, [])
+  }, [email])
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>
 }
 

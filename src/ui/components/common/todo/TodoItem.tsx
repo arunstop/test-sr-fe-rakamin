@@ -12,6 +12,7 @@ import Label from "../Label"
 import TaskAddModal from "../task/TaskAddModal"
 import TaskItem from "../task/TaskItem"
 import { useIntersectionObserver } from "../../../hooks/IntersectionObserverHook"
+import Cookies from "js-cookie"
 
 export interface ICardDirection {
   left?: number
@@ -46,6 +47,7 @@ function TodoItem(props: {
         targetTodoId: id,
         taskId: task.id,
         todoId: task.todo_id,
+        token: Cookies.get("auth_token") || "",
       },
     })
   }
@@ -55,11 +57,12 @@ function TodoItem(props: {
     callback: async (isIntersecting) => {
       if (!isIntersecting) return
       // getting tasks
-      await (new Promise((resolve) => setTimeout(resolve, 3000)))
+      await new Promise((resolve) => setTimeout(resolve, 3000))
       // console.log('should load', id)
       getTask({
         data: {
           todoId: id,
+          token: Cookies.get("auth_token") || "",
         },
       })
     },

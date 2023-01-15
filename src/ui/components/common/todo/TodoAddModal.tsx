@@ -3,6 +3,7 @@ import { useTodo } from "../../../../app/stores/todo/TodoHook"
 import { ITodoInput } from "../../../../app/types/stores/types-todo"
 import Modal, { IModalProps } from "../Modal"
 import TodoForm from "./TodoForm"
+import Cookies from "js-cookie"
 
 function TodoAddModal({ ...modalProps }: IModalProps) {
   const [data, setData] = useState<ITodoInput>({ title: "", description: "" })
@@ -14,6 +15,7 @@ function TodoAddModal({ ...modalProps }: IModalProps) {
     await action.addTodo({
       data: {
         input: data,
+        token: Cookies.get("auth_token") || "",
       },
       onLoading(message) {
         setLoading(true)
