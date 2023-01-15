@@ -57,7 +57,7 @@ function TodoItem(props: {
     callback: async (isIntersecting) => {
       if (!isIntersecting) return
       // getting tasks
-      await new Promise((resolve) => setTimeout(resolve, 3000))
+      await new Promise((resolve) => setTimeout(resolve, 500))
       // console.log('should load', id)
       getTask({
         data: {
