@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import TodoProvider from "./app/stores/todo/TodoProvider"
 import "./index.css"
 import App from "./ui/pages/index"
+import Auth from "./ui/pages/auth"
 
 // middleware to redirect `/` to `/v1`
 if (!(window.location.href + "/").includes(`${window.location.origin}/v1/`)) {
@@ -12,18 +13,14 @@ if (!(window.location.href + "/").includes(`${window.location.origin}/v1/`)) {
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter basename="v1">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <TodoProvider>
-              <App />
-            </TodoProvider>
-          }
-        />
-        <Route path="*" element={<Navigate to={"/"} />} />
-      </Routes>
-    </BrowserRouter>
+    <TodoProvider>
+      <BrowserRouter basename="v1">
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="*" element={<Navigate to={"/"} />} />
+        </Routes>
+      </BrowserRouter>
+    </TodoProvider>
   </React.StrictMode>,
 )
