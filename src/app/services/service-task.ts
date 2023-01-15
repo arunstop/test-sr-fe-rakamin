@@ -1,4 +1,3 @@
-import { token } from "../../core/clients/api-todo"
 import { ITask } from "../../core/data/models/task"
 import {
   repoTaskAdd,
@@ -21,7 +20,8 @@ export async function serviceTaskGet({
 }: TServiceTaskGetProps): Promise<ITask[] | null> {
   await onLoading?.("Getting your task list...")
   try {
-    const resp = await repoTaskGet({ todoId: data.todoId, token: token })
+    if (!data.token.trim()) throw new Error("Not logged in.")
+    const resp = await repoTaskGet({ todoId: data.todoId, token: data.token })
     if (!resp.ok) throw new Error((await resp.json()).message)
     const result = (await resp.json()) as unknown as ITask[]
     await onSuccess?.(result)
@@ -41,10 +41,11 @@ export async function serviceTaskAdd({
 }: TServiceTaskAddProps): Promise<ITask | null> {
   await onLoading?.("Adding task...")
   try {
+    if (!data.token.trim()) throw new Error("Not logged in.")
     const resp = await repoTaskAdd({
       todoId: data.todoId,
       input: data.input,
-      token: token,
+      token: data.token,
     })
     if (!resp.ok) throw new Error((await resp.json()).message)
     const result = (await resp.json()) as unknown as ITask
@@ -65,12 +66,13 @@ export async function serviceTaskEdit({
 }: TServiceTaskEditProps): Promise<ITask | null> {
   await onLoading?.("Getting your  list...")
   try {
+    if (!data.token.trim()) throw new Error("Not logged in.")
     const resp = await repoTaskEdit({
       todoId: data.todoId,
       targetTodoId: data.targetTodoId,
       taskId: data.taskId,
       input: data.input,
-      token: token,
+      token: data.token,
     })
     if (!resp.ok) throw new Error((await resp.json()).message)
     const result = (await resp.json()) as unknown as ITask
@@ -91,10 +93,11 @@ export async function serviceTaskDelete({
 }: TServiceTaskDeleteProps): Promise<boolean | null> {
   await onLoading?.("Getting your  list...")
   try {
+    if (!data.token.trim()) throw new Error("Not logged in.")
     const resp = await repoTaskDelete({
       todoId: data.todoId,
       taskId: data.taskId,
-      token: token,
+      token: data.token,
     })
     if (!resp.ok) throw new Error((await resp.json()).message)
     const result = !!resp.ok

@@ -1,3 +1,4 @@
+import { IApiToken } from './../commons';
 import { ITodo } from "../../../core/data/models/todo"
 import { IContextProps } from "../commons"
 import { IServiceReq } from "../service"
@@ -34,4 +35,5 @@ export interface ITodoInput {
 }
 
 // adding todo
-export type TServiceTodoAddProps = IServiceReq<{ input: ITodoInput }, ITodo>
+export type TServiceTodoAddProps = IServiceReq<{ input: ITodoInput }&IApiToken, ITodo>
+export type TServiceTodoGetProps = IServiceReq<IApiToken, ITodo[]>

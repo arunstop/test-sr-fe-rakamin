@@ -6,6 +6,7 @@ import {
 } from "../../../../app/types/stores/types-task"
 import Modal, { IModalProps } from "../Modal"
 import TaskForm from "./TaskForm"
+import Cookies from "js-cookie"
 
 function TaskEditModal({
   taskId,
@@ -22,7 +23,7 @@ function TaskEditModal({
   function onEdit(data: ITaskInput) {
     setData(data)
   }
-  const onSubmit = useCallback(async (input:ITaskInput) => {
+  const onSubmit = useCallback(async (input: ITaskInput) => {
     await editTask({
       // not changing target todo id cuz only need to edits the name/progress
       data: {
@@ -30,6 +31,7 @@ function TaskEditModal({
         todoId: todoId,
         taskId: taskId,
         targetTodoId: todoId,
+        token: Cookies.get("auth_token") || "",
       },
       onLoading(message) {
         setLoading(true)

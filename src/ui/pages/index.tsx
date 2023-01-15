@@ -4,6 +4,7 @@ import TodoItem, { ICardDirection } from "../components/common/todo/TodoItem"
 import { TType } from "../../app/types/commons"
 import { useTodo } from "../../app/stores/todo/TodoHook"
 import { ITodo } from "../../core/data/models/todo"
+import { useAuthStore } from "../../app/stores/auth/AuthStore."
 
 function PageIndex() {
   const { state } = useTodo()
@@ -32,6 +33,8 @@ function PageIndex() {
 
   const ref = useRef<HTMLElement | null>(null)
   const dragScroll = useDragScroll(ref)
+  const { email } = useAuthStore()
+  const todos = state?.data && !!email ? state.data : []
   return (
     <LayoutMain>
       <main
@@ -43,7 +46,7 @@ function PageIndex() {
         {...dragScroll}
       >
         <>
-          {state?.data.map((v, idx) => {
+          {todos.map((v, idx) => {
             return (
               <TodoItem
                 key={idx}
@@ -89,7 +92,7 @@ const useDragScroll = <EL extends HTMLElement>(
     el.style.cursor = "default"
     el.style.userSelect = "auto"
   }
-  
+
   function onMouseDown(ev: React.MouseEvent) {
     if (!el) return
     setPos({

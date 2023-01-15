@@ -3,6 +3,7 @@ import { useTaskStore } from "../../../../app/stores/task/TaskStore"
 import { ITaskInput } from "../../../../app/types/stores/types-task"
 import Modal, { IModalProps } from "../Modal"
 import TaskForm from "./TaskForm"
+import Cookies from "js-cookie"
 
 function TaskAddModal({
   todoId,
@@ -19,7 +20,7 @@ function TaskAddModal({
   }
   const onSubmit = useCallback(async (input: ITaskInput) => {
     await addTask({
-      data: { input: input, todoId: todoId },
+      data: { input: input, todoId: todoId ,token:Cookies.get("auth_token")||""},
       onLoading(message) {
         setLoading(true)
       },

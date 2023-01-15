@@ -11,6 +11,8 @@ import { Card } from "../Card"
 import Label from "../Label"
 import TaskAddModal from "../task/TaskAddModal"
 import TaskItem from "../task/TaskItem"
+import { useIntersectionObserver } from "../../../hooks/IntersectionObserverHook"
+import Cookies from "js-cookie"
 
 export interface ICardDirection {
   left?: number
@@ -29,6 +31,8 @@ function TodoItem(props: {
   const style = getTypeStyle(type)
   const { moveTask } = useTaskStore()
   const [newModal, setNewModal] = useState(false)
+  const { getTask } = useTaskStore()
+
   async function handleOnDrop(ev: React.DragEvent<HTMLDivElement>) {
     ev.preventDefault()
     const data = ev.dataTransfer.getData("text/plain")
@@ -43,14 +47,31 @@ function TodoItem(props: {
         targetTodoId: id,
         taskId: task.id,
         todoId: task.todo_id,
+        token: Cookies.get("auth_token") || "",
       },
     })
   }
 
+  const { ref, setRef, isIntersecting } = useIntersectionObserver({
+    enterOnly: true,
+    callback: async (isIntersecting) => {
+      if (!isIntersecting) return
+      // getting tasks
+      await new Promise((resolve) => setTimeout(resolve, 500))
+      // console.log('should load', id)
+      getTask({
+        data: {
+          todoId: id,
+          token: Cookies.get("auth_token") || "",
+        },
+      })
+    },
+  })
+
   return (
     <>
       <div
-        className="flex items-start"
+        className={`flex items-start `}
         onDragOver={(ev) => {
           ev.preventDefault()
         }}
@@ -61,27 +82,40 @@ function TodoItem(props: {
         onDrop={handleOnDrop}
         // onDragEnd={handleDragEnd}
         data-cy={`todo-item-${id}`}
+        ref={(elRef) => {
+          setRef(elRef)
+        }}
       >
         <Card
           className={`bg-primary-bg gap-[0.5rem] w-full
-          ${style.bg + style.border}`}
+          ${style.bg + style.border}
+          transition-all duration-[5000ms]`}
         >
           <div>
             <Label text={title} type={type} />
           </div>
           <div className="font-bold text-sm">{description}</div>
           {/* TODO: rendering a bit too much, please */}
-          <ItemSection todoId={id} direction={props.direction} />
-          <div className="flex h-min">
-            <Button
-              className="flex gap-[6.67px] items-center px-0 py-0 bg-transparent text-black"
-              onClick={() => setNewModal(true)}
-              data-cy="button-add-task-modal"
-            >
-              <Icon icon="uil:plus-circle" className="text-[16.67px]" />
-              <span className="text-sm font-normal">New Task</span>
-            </Button>
-          </div>
+          {isIntersecting ? (
+            <>
+              <ItemSection todoId={id} direction={props.direction} />
+              <div className="flex h-min">
+                <Button
+                  className="flex gap-[6.67px] items-center px-0 py-0 bg-transparent text-black"
+                  onClick={() => setNewModal(true)}
+                  data-cy="button-add-task-modal"
+                >
+                  <Icon icon="uil:plus-circle" className="text-[16.67px]" />
+                  <span className="text-sm font-normal">New Task</span>
+                </Button>
+              </div>
+            </>
+          ) : (
+            <Card className="px-4 py-2 text-md text-[#757575] flex !flex-row items-center gap-2 sm:gap-4">
+              <Icon icon="eos-icons:loading" className="text-lg" />
+              <span>Loading</span>
+            </Card>
+          )}
         </Card>
       </div>
       <TaskAddModal

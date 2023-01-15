@@ -1,11 +1,12 @@
 import { ITask } from "../../../core/data/models/task"
+import { IApiToken } from "../commons"
 import { IServiceReq } from "../service"
 
 // service related types
 
 export interface ITaskInput {
   name: string
-  progress_percentage: number|null
+  progress_percentage: number | null
 }
 
 export interface IServiceTaskData {
@@ -21,17 +22,21 @@ export type IRepoTaskDeleteProps = Omit<IServiceTaskData, "input">
 
 export type TServiceTaskParams<IN, OUT = ITask> = IServiceReq<IN, OUT>
 export type TServiceTaskGetProps = TServiceTaskParams<
-  IRepoTaskGetProps,
+  IRepoTaskGetProps & IApiToken,
   ITask[]
 >
-export type TServiceTaskAddProps = TServiceTaskParams<IRepoTaskAddProps>
-export type TServiceTaskEditProps = TServiceTaskParams<IRepoTaskEditProps>
-export type TServiceTaskMoveDirection= "LEFT" | "RIGHT"
-export type TServiceTaskMoveProps = TServiceTaskEditProps & {
-  direction:TServiceTaskMoveDirection
-}
+export type TServiceTaskAddProps = TServiceTaskParams<
+  IRepoTaskAddProps & IApiToken
+>
+export type TServiceTaskEditProps = TServiceTaskParams<
+  IRepoTaskEditProps & IApiToken
+>
+export type TServiceTaskMoveDirection = "LEFT" | "RIGHT"
+// export type TServiceTaskMoveProps = TServiceTaskEditProps & {
+//   direction: TServiceTaskMoveDirection
+// } & IApiToken
 export type TServiceTaskDeleteProps = TServiceTaskParams<
-  IRepoTaskDeleteProps,
+  IRepoTaskDeleteProps & IApiToken,
   boolean
 >
 
